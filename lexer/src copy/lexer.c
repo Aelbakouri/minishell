@@ -43,9 +43,7 @@ token_T* lexer_get_next_token(lexer_T* lexer)
             return lexer_collect_id(lexer);
 
         if (lexer->c == '"')
-            return lexer_collect_string(lexer, '"');
-        else if(lexer->c == '\'')
-            return lexer_collect_string(lexer, '\'');
+            return lexer_collect_string(lexer);
 
         switch (lexer->c)
         {
@@ -58,17 +56,18 @@ token_T* lexer_get_next_token(lexer_T* lexer)
             case ',': return lexer_advance_with_token(lexer, init_token(TOKEN_COMMA, lexer_get_current_char_as_string(lexer))); break;
         }
     }
-    return 0;
+
+    return init_token(TOKEN_EOF, "\0");
 }
 
-token_T* lexer_collect_string(lexer_T* lexer, char c)
+token_T* lexer_collect_string(lexer_T* lexer)
 {
     lexer_advance(lexer);
 
     char* value = calloc(1, sizeof(char));
     value[0] = '\0';
 
-    while (lexer->c != c)
+    while (lexer->c != '"')
     {
         char* s = lexer_get_current_char_as_string(lexer);
         value = realloc(value, (strlen(value) + strlen(s) + 1) * sizeof(char));
