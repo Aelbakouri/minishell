@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 18:02:06 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/04/09 18:22:01 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:24:52 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void destroy_token(Token* token)
 
 void print_token(Token* token)
 {
-	if (token == NULL)
+	if (token == NULL || !token->value)
 	{
 		return;
 	}
@@ -90,6 +90,7 @@ Token** tokenize_input(char* input, int* count)
 		char current_char = input[input_index];
 		if (isspace(current_char))
 		{
+			printf("nnnnnn%dnnnnnn\n",token_value_index);
 			if (token_value_index > 0)
 			{
 				token_value[token_value_index] = '\0';
@@ -139,7 +140,7 @@ Token** tokenize_input(char* input, int* count)
 		tokens[token_count] = create_token(token_type, token_value);
 		token_count++;
 	}
-	free(token_value);
+	// free(token_value);
 	*count = token_count;
 	return tokens;
 }
