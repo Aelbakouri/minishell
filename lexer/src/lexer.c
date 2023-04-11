@@ -91,7 +91,6 @@ token_T* lexer_collect_id(lexer_T* lexer)
         char* s = lexer_get_current_char_as_string(lexer);
         value = realloc(value, (strlen(value) + strlen(s) + 1) * sizeof(char));
         strcat(value, s);
-
         lexer_advance(lexer);
     }
 

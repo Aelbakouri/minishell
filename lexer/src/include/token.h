@@ -5,15 +5,12 @@ typedef struct TOKEN_STRUCT
     enum
     {
         TOKEN_ID,
-        TOKEN_EQUALS,
         TOKEN_STRING,
         TOKEN_SEMI,
-        TOKEN_LPAREN,
-        TOKEN_RPAREN,
-        TOKEN_RBRACE,
-        TOKEN_LBRACE,
-        TOKEN_COMMA,
-        TOKEN_EOF
+        TOKEN_PIPE,
+        TOKEN_BACKGROUND,
+        TOKEN_INPUT,
+        TOKEN_OUTPUT
     } type;
 
     char* value;
