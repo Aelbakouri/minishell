@@ -6,11 +6,14 @@ typedef struct TOKEN_STRUCT
     {
         TOKEN_ID,
         TOKEN_STRING,
-        TOKEN_SEMI,
+        // TOKEN_SEMI,
         TOKEN_PIPE,
-        TOKEN_BACKGROUND,
+        // TOKEN_BACKGROUND,
+        TOKEN_VAR,
+        TOKEN_FLAG,
         TOKEN_INPUT,
-        TOKEN_OUTPUT
+        TOKEN_OUTPUT,
+        TOKEN_ERR
     } type;
 
     char* value;

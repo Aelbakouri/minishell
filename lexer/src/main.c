@@ -3,7 +3,7 @@
 
 int	main(int ac, char **av)
 {
-	lexer_T* lexer = init_lexer("echo \"hello      there\" how are 'you 'doing? $USER |wc -l >outfile");
+	lexer_T* lexer = init_lexer("echo \"hello      there\" <how are 'you 'doing? $USER |wc -l >outfile");
 	token_T* token = (void*)0;
 
 	while ((token = lexer_get_next_token(lexer)) != (void*)0)

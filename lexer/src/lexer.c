@@ -24,28 +24,24 @@ void lexer_advance(lexer_T* lexer)
     }
 }
 
-void lexer_skip_whitespace(lexer_T* lexer)
-{
-    while (lexer->c == ' ' || lexer->c == 10)
-    {
-        lexer_advance(lexer);
-    }
-}
+// void lexer_skip_whitespace(lexer_T* lexer)
+// {
+//     while (lexer->c == ' ' || lexer->c == 10)
+//         lexer_advance(lexer);
+// }
 
 token_T* lexer_get_next_token(lexer_T* lexer)
 {
     while (lexer->c && lexer->i < strlen(lexer->contents))
     {
-        if (lexer->c == ' ' || lexer->c == 10)
-            lexer_skip_whitespace(lexer);
-        if (isalnum(lexer->c))
-            return lexer_collect_id(lexer, 0);
+        while (lexer->c == ' ' || lexer->c == 10)
+            lexer_advance(lexer);
         if (lexer->c == '"' || lexer->c == '\'')
             return lexer_collect_string(lexer);
-        if (lexer->c == '$' || lexer->c == '|' || lexer->c == '<' || lexer->c == '>'|| lexer->c == '-')
-        {
+        if (lexer->c == '|' || lexer->c == '<' || lexer->c == '>')
             return lexer_collect_id(lexer, lexer->c);
-        }
+        if (lexer->c)
+            return lexer_collect_id(lexer, 0);
         // switch (lexer->c)
         // {
         //     case '=': return lexer_advance_with_token(lexer, init_token(TOKEN_EQUALS, lexer_get_current_char_as_string(lexer))); break;
@@ -82,11 +78,11 @@ token_T* lexer_collect_string(lexer_T* lexer)
 
 token_T* lexer_collect_id(lexer_T* lexer, char c)
 {
-    char* value = calloc(1, sizeof(char));
+    char* value = calloc(2, sizeof(char));
+    int token = get_token_id(lexer->c);
     value[0] = c;
-    if (c)
-        lexer_advance(lexer);
-    while (lexer->c != ' ' && lexer->c != 10 && lexer->c)
+    value[1] = 0;
+    while (lexer->c != ' ' && lexer->c != 10 && lexer->c && !c)
     {
         char* s = lexer_get_current_char_as_string(lexer);
         value = realloc(value, (strlen(value) + strlen(s) + 1) * sizeof(char));
@@ -95,7 +91,28 @@ token_T* lexer_collect_id(lexer_T* lexer, char c)
     }
         lexer_advance(lexer);
 
-    return init_token(TOKEN_ID, value);
+    return init_token(token, value);
+}
+
+int get_token_id(char c)
+{
+    int token;
+
+    if (isalnum(c))
+        token = TOKEN_ID;
+    else if (c == '|')
+        token = TOKEN_PIPE;
+    else if (c == '$')
+        token = TOKEN_VAR;
+    else if (c == '-')
+        token = TOKEN_FLAG;
+    else if (c == '<')
+        token = TOKEN_INPUT;
+    else if (c == '>')
+        token = TOKEN_OUTPUT;
+    else
+        token = TOKEN_ERR;
+    return token;
 }
 
 token_T* lexer_advance_with_token(lexer_T* lexer, token_T* token)
