@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 17:45:23 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/04/12 18:42:53 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:49:11 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char* expand_variable(char *var)
 	char	*username = "john";
 	struct passwd *pw;
 
+	if (!var)
+		return " ";
 	if (var[0] == '$')
 	{
 		// If the variable starts with a $ character, expand it using getenv
@@ -79,13 +81,14 @@ char* expand_variable(char *var)
 		// If the variable doesn't start with $ or ~, just use its value
 		home_dir = var;
 	}
+
 	return home_dir;
-}
+	}
 
 int main(int ac, char **av)
 {
 	(void)ac;
-	char *expanded = expand_variable(av[1]);
-	printf("Expanded variable: %s\n", expanded);
-	return 0;
+  char *expanded = expand_variable(av[1]);
+  printf("Expanded variable: %s\n", expanded);
+  return 0;
 }
