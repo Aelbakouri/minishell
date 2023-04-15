@@ -25,26 +25,25 @@
 
 // using history
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
 int main() {
     char* input;
 
-    // Load the history file
-    using_history();
+    // Use readline to read input from the user
+    input = readline("  : ");
 
-    // Read input from the user
-    while ((input = readline("s$ ")) != NULL) {
-        // Add the input to the history
-        add_history(input);
+    // Add the input to the history
+    // add_history(input);
 
-        // Print the input
-        printf("You entered: %s\n\v", input);
+    // Print the input
+    printf("You entered: %s\n", input);
 
-        // Free the input string
-        free(input);
-    }
-
-    // Save the history file
-    write_history(".history");
+    // Free the memory used by the input
+     free(input);
 
     return 0;
 }

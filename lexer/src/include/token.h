@@ -6,9 +6,8 @@ typedef struct TOKEN_STRUCT
     {
         TOKEN_ID,
         TOKEN_STRING,
-        // TOKEN_SEMI,
         TOKEN_PIPE,
-        // TOKEN_BACKGROUND,
+        TOKEN_TILDE,
         TOKEN_VAR,
         TOKEN_FLAG,
         TOKEN_INPUT,

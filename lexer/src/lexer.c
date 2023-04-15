@@ -24,12 +24,6 @@ void lexer_advance(lexer_T* lexer)
     }
 }
 
-// void lexer_skip_whitespace(lexer_T* lexer)
-// {
-//     while (lexer->c == ' ' || lexer->c == 10)
-//         lexer_advance(lexer);
-// }
-
 token_T* lexer_get_next_token(lexer_T* lexer)
 {
     while (lexer->c && lexer->i < strlen(lexer->contents))
@@ -42,16 +36,6 @@ token_T* lexer_get_next_token(lexer_T* lexer)
             return lexer_collect_id(lexer, lexer->c);
         if (lexer->c)
             return lexer_collect_id(lexer, 0);
-        // switch (lexer->c)
-        // {
-        //     case '=': return lexer_advance_with_token(lexer, init_token(TOKEN_EQUALS, lexer_get_current_char_as_string(lexer))); break;
-        //     case ';': return lexer_advance_with_token(lexer, init_token(TOKEN_SEMI, lexer_get_current_char_as_string(lexer))); break;
-        //     case '(': return lexer_advance_with_token(lexer, init_token(TOKEN_LPAREN, lexer_get_current_char_as_string(lexer))); break;
-        //     case ')': return lexer_advance_with_token(lexer, init_token(TOKEN_RPAREN, lexer_get_current_char_as_string(lexer))); break;
-        //     case '{': return lexer_advance_with_token(lexer, init_token(TOKEN_LBRACE, lexer_get_current_char_as_string(lexer))); break;
-        //     case '}': return lexer_advance_with_token(lexer, init_token(TOKEN_RBRACE, lexer_get_current_char_as_string(lexer))); break;
-        //     case ',': return lexer_advance_with_token(lexer, init_token(TOKEN_COMMA, lexer_get_current_char_as_string(lexer))); break;
-        // }
     }
     return 0;
 }
@@ -108,6 +92,8 @@ int get_token_id(char c)
         token = TOKEN_FLAG;
     else if (c == '<')
         token = TOKEN_INPUT;
+    else if (c == '~')
+        token = TOKEN_TILDE;
     else if (c == '>')
         token = TOKEN_OUTPUT;
     else
