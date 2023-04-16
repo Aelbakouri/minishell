@@ -59,7 +59,7 @@ int main(int ac, char **av) {
     }
 
 
-    printf("av_%d :\t %s\n", i, triple);
+    printf("av_%d :\t %s\n", i, getpwuid(getuid())->pw_dir);
     // printf("Expanded path 1: %s\n", expand_home_directory("~"));
     // printf("Expanded path 2: %s\n", expanded_path2);
     // free(expanded_path1);

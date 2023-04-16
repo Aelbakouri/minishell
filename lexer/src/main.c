@@ -9,7 +9,7 @@
 char* expand_variable(char *var)
 {
 	char	*home_dir;
-	char	*username = "john";
+	char	*username = "ael-bako";
 	struct passwd *pw;
 
 	if (!var)
@@ -26,10 +26,10 @@ char* expand_variable(char *var)
 	{
 		if (strlen(var) > 1)
 			username = var + 1;
-		// pw = getpwnam(username);
-		// if (!pw)
-		// 	return var;
-		// home_dir = pw->pw_dir;
+		pw = getpwnam(username);
+		if (!pw)
+			return var;
+		home_dir = pw->pw_dir;
 	}
 	else
 		home_dir = var;
@@ -39,15 +39,15 @@ char* expand_variable(char *var)
 
 int	main(int ac, char **av)
 {
-	lexer_T* lexer = init_lexer("echo \"hello  it's  ~  there\" ~ <how are $RC 'you 'doing? $USER |wc -l >outfile");
+	lexer_T* lexer = init_lexer("echo \"hello  it's  ~0  there\" ~ <how are $RC 'you 'doing? $USER |wc -l >outfile");
 	token_T* token = (void*)0;
 
-	printf("hello %s\n", expand_variable("~0"));
+	// printf("hello %s\n", expand_variable("~0"));
 	while ((token = lexer_get_next_token(lexer)) != (void*)0)
 	{
-		// if (token->value[0] == '$' || token->value[0] == '~')
-		// printf("hello %s\n", expand_variable(token->value));
-			// printf("TOKEN(%d, '%s')\n", token->type, expand_variable(token->value));
+		if (token->value[0] == '$' || token->value[0] == '~')
+			printf("TOKEN(%d, '%s')\n", token->type, expand_variable(token->value));
+		else
 			printf("TOKEN(%d, '%s')\n", token->type, token->value);
 	}
 }
