@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 17:45:23 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/04/16 17:44:04 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/04/24 10:21:07 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,15 +123,12 @@ char* expand_variable(char *var)
 int main(int ac, char **av)
 {
 	(void)ac;
-	char *expanded = expand_variable("$USER");
+	char *expanded = expand_variable(av[1]);
 	// if (av[1][0] == '/')
 	// 	printf("%s\n", av[1]);
 	printf("Expanded variablee :%s:\n", expanded);
 	return 0;
 }
-
-
-
 
 // char* expand_tilde(const char* path) {
 //     if (path == NULL) {
