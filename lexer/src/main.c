@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <pwd.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 char* expand_variable(char *var)
 {
@@ -39,10 +41,10 @@ char* expand_variable(char *var)
 
 int	main(int ac, char **av)
 {
-	lexer_T* lexer = init_lexer("echo \"hello  it's  ~0  there\" ~ <how are $RC 'you 'doing? $USER |wc -l >outfile");
+	// lexer_T* lexer = init_lexer("echo \"hello  it's  ~0  there\" ~ <how are $RC 'you 'doing? $USER |wc -l >outfile");
+	lexer_T* lexer = init_lexer(readline("minishell$ "));
 	token_T* token = (void*)0;
 
-	// printf("hello %s\n", expand_variable("~0"));
 	while ((token = lexer_get_next_token(lexer)) != (void*)0)
 	{
 		if (token->value[0] == '$' || token->value[0] == '~')

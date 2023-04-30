@@ -5,7 +5,7 @@ flags = -g
 
 
 $(exec): $(objects)
-	gcc $(objects) $(flags) -o $(exec)
+	gcc $(objects) $(flags) -o $(exec) -lreadline
 
 %.o: %.c include/%.h
 	gcc -c $(flags) $< -o $@
