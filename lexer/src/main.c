@@ -18,7 +18,6 @@ char* expand_variable(char *var)
 		return " ";
 	if (var[0] == '$')
 	{
-		// If the variable starts with a $ character, expand it using getenv
 		if (strlen(var) == 1)
 			return "$";
 		char *env_var = var + 1;
