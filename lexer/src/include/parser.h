@@ -1,6 +1,8 @@
-#ifndef PARSER_H
-#define PARSER_H
+# ifndef PARSER_H
+# define PARSER_H
 
+# define STDIN 0
+# define STDOUT 1
 
 typedef struct s_prompt
 {
@@ -17,4 +19,4 @@ typedef struct s_list
 	int	outfile;
 }		t_list;
 
-#endif
+# endif

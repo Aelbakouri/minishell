@@ -1,5 +1,5 @@
-// #include "include/parser.h"
-// #include "include/lexer.h"
+#include "include/parser.h"
+#include "include/lexer.h"
 
 // char	*get_path(char *cmd, char **env)
 // {
@@ -40,3 +40,43 @@
 // 			printf("TOKEN(%d, '%s')\n", token->type, token->value);
 // 	}
 // }
+
+static t_list	*list_init(void)
+{
+	t_list	*node;
+
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->full_cmd = NULL;
+	node->full_path = NULL;
+	node->infile = STDIN;
+	node->outfile = STDOUT;
+	return (node);
+}
+static t_list	*get_params(t_list *node, char **a[2], int *i)
+{
+	if (a[0][*i])
+	{
+		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
+			node = get_outfile2(node, a[1], i);
+		else if (a[0][*i][0] == '>')
+			node = get_outfile1(node, a[1], i);
+		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+			a[0][*i + 1][0] == '<')
+			node = get_infile2(node, a[1], i);
+		else if (a[0][*i][0] == '<')
+			node = get_infile1(node, a[1], i);
+		else if (a[0][*i][0] != '|')
+			node->full_cmd = ft_extend_arr(node->full_cmd, a[1][*i]);
+		else
+		{
+			mini_perror(PIPENDERR, NULL, 2);
+			*i = -2;
+		}
+		return (node);
+	}
+	mini_perror(PIPENDERR, NULL, 2);
+	*i = -2;
+	return (node);
+}
