@@ -19,7 +19,7 @@ void lexer_advance(lexer_T* lexer)
 {
     if (lexer->c != '\0' && lexer->i < strlen(lexer->contents))
     {
-        lexer->i += 1;
+        lexer->i++;
         lexer->c = lexer->contents[lexer->i];
     }
 }
@@ -42,12 +42,13 @@ token_T* lexer_get_next_token(lexer_T* lexer)
 
 token_T* lexer_collect_string(lexer_T* lexer)
 {
-    char c = lexer->c;
+    char c;
+    char* value;
+
+    value = calloc(1, sizeof(char));
+    c = lexer->c;
     lexer_advance(lexer);
-
-    char* value = calloc(1, sizeof(char));
     value[0] = '\0';
-
     while (lexer->c != c)
     {
         char* s = lexer_get_current_char_as_string(lexer);
@@ -56,16 +57,17 @@ token_T* lexer_collect_string(lexer_T* lexer)
         lexer_advance(lexer);
     }
     lexer_advance(lexer);
-
     return init_token(TOKEN_ID, value);
 }
 
 token_T* lexer_collect_id(lexer_T* lexer, char c)
 {
-    char* value = calloc(2, sizeof(char));
-    int token = get_token_id(lexer->c);
+    char* value;
+    int token;
+
+    value = calloc(2, sizeof(char));
+    token = get_token_id(lexer->c);
     value[0] = c;
-    value[1] = 0;
     while (lexer->c != ' ' && lexer->c != 10 && lexer->c && !c)
     {
         char* s = lexer_get_current_char_as_string(lexer);
@@ -104,7 +106,6 @@ int get_token_id(char c)
 token_T* lexer_advance_with_token(lexer_T* lexer, token_T* token)
 {
     lexer_advance(lexer);
-
     return token;
 }
 
@@ -116,3 +117,4 @@ char* lexer_get_current_char_as_string(lexer_T* lexer)
 
     return str;
 }
+

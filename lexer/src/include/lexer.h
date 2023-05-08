@@ -1,6 +1,7 @@
 #ifndef LEXER_H
 #define LEXER_H
 #include "token.h"
+# include "../libft/inc/libft.h"
 
 
 typedef struct LEXER_STRUCT
@@ -28,3 +29,4 @@ token_T* lexer_advance_with_token(lexer_T* lexer, token_T* token);
 
 char* lexer_get_current_char_as_string(lexer_T* lexer);
 #endif
+# include "../libft/inc/libft.h"

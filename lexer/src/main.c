@@ -46,7 +46,7 @@ int	main(int ac, char **av)
 
 	while ((token = lexer_get_next_token(lexer)) != (void*)0)
 	{
-		if (token->value[0] == '$' || token->value[0] == '~')
+		if (token->type == TOKEN_VAR || token->type == TOKEN_TILDE)
 			printf("TOKEN(%d, '%s')\n", token->type, expand_variable(token->value));
 		else
 			printf("TOKEN(%d, '%s')\n", token->type, token->value);
