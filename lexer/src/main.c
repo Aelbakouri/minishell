@@ -56,7 +56,6 @@ int	main(int ac, char **av)
 	t_list	*node, *tmp;
 	while ((lexer = init_lexer(readline("minishell$ "))))
 	{
-		// lexer = init_lexer(readline("minishell$ "));
 		while ((token = lexer_get_next_token(lexer)) != (void*)0)
 		{
 			tmp = ft_lstnew(token);

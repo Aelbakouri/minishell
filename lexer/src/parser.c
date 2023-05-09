@@ -41,11 +41,11 @@
 // 	}
 // }
 
-static t_list	*list_init(void)
+static t_mini	*mini_init(void)
 {
-	t_list	*node;
+	t_mini	*node;
 
-	node = malloc(sizeof(t_list));
+	node = malloc(sizeof(t_mini));
 	if (!node)
 		return (NULL);
 	node->full_cmd = NULL;
@@ -54,7 +54,7 @@ static t_list	*list_init(void)
 	node->outfile = STDOUT;
 	return (node);
 }
-static t_list	*get_params(t_list *node, token_T *a, int *i)
+static t_mini	*get_params(t_mini *node, token_T *a, int *i)
 {
 	if (a[0][*i])
 	{
@@ -80,3 +80,36 @@ static t_list	*get_params(t_list *node, token_T *a, int *i)
 	*i = -2;
 	return (node);
 }
+
+
+
+
+
+// char	**ft_extend_matrix(char **in, char *newstr)
+// {
+// 	char	**out;
+// 	int		len;
+// 	int		i;
+
+// 	i = -1;
+// 	out = NULL;
+// 	if (!newstr)
+// 		return (in);
+// 	len = ft_matrixlen(in);
+// 	out = malloc(sizeof(char *) * (len + 2));
+// 	out[len + 1] = NULL;
+// 	if (!out)
+// 		return (in);
+// 	while (++i < len)
+// 	{
+// 		out[i] = ft_strdup(in[i]);
+// 		if (!out[i])
+// 		{
+// 			ft_free_matrix(&in);
+// 			ft_free_matrix(&out);
+// 		}
+// 	}
+// 	out[i] = ft_strdup(newstr);
+// 	ft_free_matrix(&in);
+// 	return (out);
+// }

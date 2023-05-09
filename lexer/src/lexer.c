@@ -11,7 +11,7 @@ lexer_T* init_lexer(char* contents)
     lexer->contents = contents;
     lexer->i = 0;
     lexer->c = contents[lexer->i];
-
+    lexer->next_c = contents[lexer->i + 1];
     return lexer;
 }
 
@@ -21,6 +21,8 @@ void lexer_advance(lexer_T* lexer)
     {
         lexer->i++;
         lexer->c = lexer->contents[lexer->i];
+        if (lexer->contents[lexer->i + 1])
+            lexer->next_c = lexer->contents[lexer->i + 1];
     }
 }
 
@@ -32,6 +34,9 @@ token_T* lexer_get_next_token(lexer_T* lexer)
             lexer_advance(lexer);
         if (lexer->c == '"' || lexer->c == '\'')
             return lexer_collect_string(lexer);
+        if ((lexer->c == '<' && lexer->next_c == '<') ||
+                (lexer->c == '>' && lexer->next_c == '>'))
+            return lexer_collect_pipe(lexer, lexer->c);
         if (lexer->c == '|' || lexer->c == '<' || lexer->c == '>')
             return lexer_collect_id(lexer, lexer->c);
         if (lexer->c)
@@ -77,6 +82,22 @@ token_T* lexer_collect_id(lexer_T* lexer, char c)
     }
         lexer_advance(lexer);
 
+    return init_token(token, value);
+}
+
+token_T* lexer_collect_pipe(lexer_T* lexer, char c)
+{
+    char* value;
+    int token;
+
+    if (c == '<')
+        token = HERDOC_L;
+    else
+        token = HERDOC_R;
+    value = calloc(3, sizeof(char));
+    memset(value, c, 2);
+    lexer_advance(lexer);
+    lexer_advance(lexer);
     return init_token(token, value);
 }
 

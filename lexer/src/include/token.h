@@ -1,5 +1,6 @@
 #ifndef TOKEN_H
 #define TOKEN_H
+# include "../libft/inc/libft.h"
 typedef struct TOKEN_STRUCT
 {
     enum
@@ -11,6 +12,8 @@ typedef struct TOKEN_STRUCT
         TOKEN_FLAG,
         TOKEN_INPUT,
         TOKEN_OUTPUT,
+        HERDOC_R,
+        HERDOC_L,
         TOKEN_ERR
     } type;
 
