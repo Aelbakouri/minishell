@@ -7,6 +7,7 @@
 typedef struct LEXER_STRUCT
 {
     char c;
+    char next_c;
     unsigned int i;
     char* contents;
 } lexer_T;

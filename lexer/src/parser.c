@@ -54,7 +54,7 @@ static t_list	*list_init(void)
 	node->outfile = STDOUT;
 	return (node);
 }
-static t_list	*get_params(t_list *node, char **a[2], int *i)
+static t_list	*get_params(t_list *node, token_T *a, int *i)
 {
 	if (a[0][*i])
 	{

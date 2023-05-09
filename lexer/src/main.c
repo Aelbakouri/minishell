@@ -37,18 +37,38 @@ char* expand_variable(char *var)
 	return home_dir;
 }
 
+void	fill_node(t_list *node)
+{
+	token_T* token = (void*)0;
+	while (node)
+	{
+		token = node->content;
+		printf("%d, \t%s\n", token->type, token->value);
+		node = node->next;
+	}
+}
 
 int	main(int ac, char **av)
 {
 	// lexer_T* lexer = init_lexer("echo \"hello  it's  ~0  there\" ~ <how are $RC 'you 'doing? $USER |wc -l >outfile");
-	lexer_T* lexer = init_lexer(readline("minishell$ "));
+	lexer_T* lexer;
 	token_T* token = (void*)0;
-
-	while ((token = lexer_get_next_token(lexer)) != (void*)0)
+	t_list	*node, *tmp;
+	while ((lexer = init_lexer(readline("minishell$ "))))
 	{
-		if (token->type == TOKEN_VAR || token->type == TOKEN_TILDE)
-			printf("TOKEN(%d, '%s')\n", token->type, expand_variable(token->value));
-		else
-			printf("TOKEN(%d, '%s')\n", token->type, token->value);
+		// lexer = init_lexer(readline("minishell$ "));
+		while ((token = lexer_get_next_token(lexer)) != (void*)0)
+		{
+			tmp = ft_lstnew(token);
+			ft_lstadd_back(&node, tmp);
+		}
+		fill_node(node);
+		node = NULL;
 	}
+	// while (node)
+	// {
+	// 	token = node->content;
+	// 	printf("%d, \t%s\n", token->type, token->value);
+	// 	node = node->next;
+	// }
 }

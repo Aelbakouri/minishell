@@ -103,12 +103,6 @@ int get_token_id(char c)
     return token;
 }
 
-token_T* lexer_advance_with_token(lexer_T* lexer, token_T* token)
-{
-    lexer_advance(lexer);
-    return token;
-}
-
 char* lexer_get_current_char_as_string(lexer_T* lexer)
 {
     char* str = calloc(2, sizeof(char));
