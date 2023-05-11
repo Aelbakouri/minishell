@@ -24,6 +24,5 @@ typedef struct s_mini
 	char	*full_path;
 	int	infile;
 	int	outfile;
-}		t_mini;
-
+}		t_mini; 
 # endif
