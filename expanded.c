@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 17:45:23 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/04/24 10:21:07 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:39:35 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,41 +89,93 @@
 // 	return home_dir;
 // }
 
-char* expand_variable(char *var)
-{
-	char	*home_dir;
-	char	*username = "ael-bako";
-	struct passwd *pw;
+// char* expand_variable(char *var)
+// {
+// 	char	*home_dir;
+// 	char	*username = "ael-bako";
+// 	struct passwd *pw;
 
-	if (!var)
-		return " ";
-	if (var[0] == '$')
-	{
-    printf("hello\n");
-		// If the variable starts with a $ character, expand it using getenv
-		if (strlen(var) == 1)
-			return "$";
-		char *env_var = var + 1;
-		home_dir = getenv(env_var);
-	}
-	else if (var[0] == '~')
-	{
-		if (strlen(var) > 1)
-			username = var + 1;
-		pw = getpwnam(username);
-		if (!pw)
-			return var;
-		home_dir = pw->pw_dir;
-	}
-	else
-		home_dir = var;
-	return home_dir;
+// 	if (!var)
+// 		return " ";
+// 	if (var[0] == '$')
+// 	{
+// 		if (strlen(var) == 1)
+// 			return "$";
+// 		char *env_var = var + 1;
+// 		home_dir = getenv(env_var);
+// 	}
+// 	else if (var[0] == '~')
+// 	{
+// 		if (strlen(var) > 1)
+// 			username = var + 1;
+// 		pw = getpwnam(username);
+// 		if (!pw)
+// 			return var;
+// 		home_dir = pw->pw_dir;
+// 	}
+// 	else
+// 		home_dir = var;
+// 	return home_dir;
+// }
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <pwd.h>
+
+char* expand_variable(char* var) {
+    char* expanded_var = NULL;
+    char* home_dir;
+    char* username = getenv("ael-bako"); // Get the current user's username
+    struct passwd* pw;
+
+    if (!var) {
+        return NULL;
+    }
+
+    if (var[0] == '$') {
+        if (strlen(var) == 1) {
+            return strdup("$"); // Return a copy of the string "$"
+        }
+        char* env_var = var + 1;
+        char* env_value = getenv(env_var);
+        if (env_value != NULL) {
+            expanded_var = strdup(env_value); // Return a copy of the environment variable's value
+        }
+    } else if (var[0] == '~') {
+        if (strlen(var) == 1 || var[1] == '/') {
+            // Expand to home directory of the current user
+            home_dir = getenv("HOME");
+        } else {
+            // Expand to home directory of a specific user
+            username = var + 1;
+            pw = getpwnam(username);
+            if (pw != NULL) {
+                home_dir = pw->pw_dir;
+            }
+        }
+        if (home_dir != NULL) {
+            size_t len = strlen(home_dir) + strlen(var) - 1; // Calculate length of the expanded variable
+            expanded_var = malloc(len + 1); // Allocate memory for the expanded variable
+            snprintf(expanded_var, len + 1, "%s%s", home_dir, var + 1); // Copy the expanded variable into the allocated memory
+        }
+    } else {
+        expanded_var = strdup(var); // Return a copy of the input string
+    }
+
+    return expanded_var;
 }
+
+
 
 int main(int ac, char **av)
 {
 	(void)ac;
-	char *expanded = expand_variable(av[1]);
+	char *expanded = expand_variable("$PWD");
+	// printf("%s\n", av[1]);
 	// if (av[1][0] == '/')
 	// 	printf("%s\n", av[1]);
 	printf("Expanded variablee :%s:\n", expanded);
@@ -218,3 +270,8 @@ int main(int ac, char **av)
 
 //     return 0;
 // }
+
+
+
+// "$PWD 'hola'" to "/home/ael-bako/minishell 'hola'"
+

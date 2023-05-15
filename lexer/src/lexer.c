@@ -105,6 +105,7 @@ int get_token_id(char c)
 {
     int token;
 
+    token = 0;
     if (isalnum(c))
         token = TOKEN_ID;
     else if (c == '|')
@@ -119,8 +120,6 @@ int get_token_id(char c)
         token = TOKEN_TILDE;
     else if (c == '>')
         token = TOKEN_OUTPUT;
-    else
-        token = TOKEN_ERR;
     return token;
 }
 
