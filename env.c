@@ -22,7 +22,7 @@ char* get_command_path(const char *command) {
 
         // Check if the command exists and is executable
         if (access(full_path, X_OK) == 0) {
-            // Return the full path of the command
+            // ç
             return strdup(full_path);
         }
 
