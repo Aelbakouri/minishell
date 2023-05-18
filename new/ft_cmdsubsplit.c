@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmddubsplit.c                                   :+:      :+:    :+:   */
+/*   ft_cmdsubsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:33:07 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/15 12:42:02 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/18 13:30:48 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 static int count_words(const char *str, const char *delimiters) {
     int count = 0, in_quotes = 0;
@@ -86,8 +88,8 @@ size_t	ft_strlen_2(char **s)
 
 int main(int ac, char  **av)
 {
-    // char *input = readline("  : ");
-	char **str = cmdsubsplit(av[1], "<|>");
+    char *input = readline("  : ");
+	char **str = cmdsubsplit(input, "<|>");
 	int len = ft_strlen_2(str);
 	int i = 0;
 	while (i < len)
