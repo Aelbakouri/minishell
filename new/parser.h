@@ -28,6 +28,8 @@ char	*expand_path(char *str, int i, int quotes[2], char *var);
 static char	*get_substr_var(char *str, int i, char **env);
 char	*expand_vars(char *str, int i, int quotes[2], char **env);
 char	*mini_env(char *var, char **envp, int n);
+int	malloc_len(char const *s1);
+char	*ft_strtrim_all(char const *s1, int squote, int dquote);
 
 
 # endif
