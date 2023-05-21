@@ -24,6 +24,21 @@ typedef struct s_mini
 	int	outfile;
 }		t_mini;
 
+enum	e_mini_error
+{
+	QUOTE = 1,
+	NDIR = 2,
+	NPERM = 3,
+	NCMD = 6,
+	DUPERR = 7,
+	FORKERR = 8,
+	PIPERR = 9,
+	PIPENDERR = 10,
+	MEM = 11,
+	IS_DIR = 12,
+	NOT_DIR = 13
+};
+
 char	*expand_path(char *str, int i, int quotes[2], char *var);
 static char	*get_substr_var(char *str, int i, char **env);
 char	*expand_vars(char *str, int i, int quotes[2], char **env);

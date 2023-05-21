@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:57 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/18 13:25:36 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 07:50:11 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,26 +84,15 @@ char **split_string(const char *str, const char *delimiters)
     return tokens;
 }
 
-size_t	ft_strlen_2(char **s)
-{
-	size_t	len;
+// int main(int ac, char  **av)
+// {
+//     char *input = readline("  : ");
+// 	char **str = split_string(input, " ");
+// 	int len = ft_strlen_2(str);
+// 	int i = 0;
+// 	while (i < len)
+// 	{
+// 		printf("%s\n", str[i++]);
+// 	}
 
-	len = 0;
-	while (s[len] != 0)
-		len++;
-	return (len);
-}
-
-
-int main(int ac, char  **av)
-{
-    char *input = readline("  : ");
-	char **str = split_string(input, " ");
-	int len = ft_strlen_2(str);
-	int i = 0;
-	while (i < len)
-	{
-		printf("%s\n", str[i++]);
-	}
-
-}
+// }

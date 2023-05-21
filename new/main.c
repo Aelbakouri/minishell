@@ -2,5 +2,5 @@
 
 int main(int ac, char **av, char **env)
 {
-	printf(":%d:\t%ld\n", malloc_len(av[1]), strlen(av[1]));
+	printf(":%s:\n", ft_strtrim_all(av[1],0 ,0));
 }

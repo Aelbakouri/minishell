@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:17:37 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/19 10:38:04 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/20 06:48:39 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ char	*ft_strtrim_all(char const *s1, int squote, int dquote)
 		dquote = (dquote + (!squote && s1[i[0]] == '\"')) % 2;
 		if ((s1[i[0]] != '\"' || squote) && (s1[i[0]] != '\'' || dquote) \
 			&& ++i[1] >= 0)
-			trimmed[i[1]] = s1[i[0]];
+			{
+				printf("sq : %d\t dq : %d \t char : %c\n", squote, dquote, s1[i[0]]);
+				trimmed[i[1]] = s1[i[0]];
+				
+			}
 		i[0]++;
 	}
 	trimmed[++i[1]] = '\0';

@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:33:07 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/18 13:30:48 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:08:45 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char **fill_array(char **words, const char *str, const char *delimiters) 
     return words;
 }
 
-char **cmdsubsplit(const char *str, const char *delimiters) {
+char **ft_cmdsubsplit(const char *str, const char *delimiters) {
     if (!str) return NULL;
     int num_words = count_words(str, delimiters);
     if (num_words < 0) return NULL;
@@ -76,25 +76,25 @@ char **cmdsubsplit(const char *str, const char *delimiters) {
 }
 
 
-size_t	ft_strlen_2(char **s)
-{
-	size_t	len;
+// size_t	ft_strlen_2(char **s)
+// {
+// 	size_t	len;
 
-	len = 0;
-	while (s[len] != 0)
-		len++;
-	return (len);
-}
+// 	len = 0;
+// 	while (s[len] != 0)
+// 		len++;
+// 	return (len);
+// }
 
-int main(int ac, char  **av)
-{
-    char *input = readline("  : ");
-	char **str = cmdsubsplit(input, "<|>");
-	int len = ft_strlen_2(str);
-	int i = 0;
-	while (i < len)
-	{
-		printf("%s\n", str[i++]);
-	}
+// int main(int ac, char  **av)
+// {
+//     char *input = readline("  : ");
+// 	char **str = cmdsubsplit(input, "<|>");
+// 	int len = ft_strlen_2(str);
+// 	int i = 0;
+// 	while (i < len)
+// 	{
+// 		printf("%s\n", str[i++]);
+// 	}
 
-}
+// }

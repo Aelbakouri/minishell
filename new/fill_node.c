@@ -6,11 +6,11 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:18:00 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/10 09:18:01 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:06:47 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "parser.h"
 
 static t_mini	*mini_init(void)
 {

@@ -6,11 +6,11 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:16 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/19 13:14:06 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:08:03 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "parser.h"
 
 extern int	g_status;
 
@@ -25,7 +25,7 @@ static char	**split_all(char **args, t_prompt *prompt)
 	{
 		args[i] = expand_vars(args[i], -1, quotes, prompt);
 		args[i] = expand_path(args[i], -1, quotes, \
-			mini_getenv("HOME", prompt->envp, 4));
+			mini_env("HOME", prompt->envp, 4));
 		subsplit = ft_cmdsubsplit(args[i], "<|>");
 		ft_matrix_replace_in(&args, subsplit, i);
 		i += ft_matrixlen(subsplit) - 1;
