@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:16 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 09:08:03 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:32:07 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,3 +88,4 @@ void	*check_args(char *out, t_prompt *p)
 		ft_lstclear(&p->cmds, free_content);
 	return (p);
 }
+

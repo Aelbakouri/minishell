@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 10:31:23 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 09:16:16 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:31:58 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,4 +222,18 @@ t_mini	*get_infile2(t_mini *node, char **args, int *i)
 		}
 	}
 	return (node);
+}
+
+void	free_content(void *content)
+{
+	t_mini	*node;
+
+	node = content;
+	ft_free_matrix(&node->full_cmd);
+	free(node->full_path);
+	if (node->infile != STDIN_FILENO)
+		close(node->infile);
+	if (node->outfile != STDOUT_FILENO)
+		close(node->outfile);
+	free(node);
 }

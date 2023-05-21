@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:18:00 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 09:06:47 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:27:25 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ static char	**get_trimmed(char **args)
 	return (temp);
 }
 
-static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
-{
-	ft_lstclear(&cmds, free_content);
-	ft_free_matrix(&temp);
-	ft_free_matrix(&args);
-	return (NULL);
-}
+// static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
+// {
+// 	ft_lstclear(&cmds, free_content);
+// 	ft_free_matrix(&temp);
+// 	ft_free_matrix(&args);
+// 	return (NULL);
+// }
 
 t_list	*fill_nodes(char **args, int i)
 {
@@ -97,7 +97,8 @@ t_list	*fill_nodes(char **args, int i)
 		temp[0] = args;
 		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
 		if (i < 0)
-			return (stop_fill(cmds[0], args, temp[1]));
+			return -1;
+			// return (stop_fill(cmds[0], args, temp[1]));
 		if (!args[i])
 			break ;
 	}

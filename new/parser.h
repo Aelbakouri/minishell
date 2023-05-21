@@ -45,6 +45,16 @@ char	*expand_vars(char *str, int i, int quotes[2], char **env);
 char	*mini_env(char *var, char **envp, int n);
 int	malloc_len(char const *s1);
 char	*ft_strtrim_all(char const *s1, int squote, int dquote);
+t_mini	*get_infile2(t_mini *node, char **args, int *i);
+t_mini	*get_infile1(t_mini *node, char **args, int *i);
+t_mini	*get_outfile2(t_mini *node, char **args, int *i);
+t_mini	*get_outfile1(t_mini *node, char **args, int *i);
+int	get_fd(int oldfd, char *path, int flags[2]);
+void	ft_free_matrix(char ***m);
+char	**ft_matrix_replace_in(char ***big, char **small, int n);
+t_list	*fill_nodes(char **args, int i);
+size_t	ft_strlen_2(char **s);
+void	free_content(void *content);
 
 
 # endif
