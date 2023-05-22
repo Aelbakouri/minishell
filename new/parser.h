@@ -7,7 +7,8 @@
 # include "libft/inc/libft.h"
 # include <string.h>
 # include <stdio.h>
-
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct s_prompt
 {
@@ -40,7 +41,7 @@ enum	e_mini_error
 };
 
 char	*expand_path(char *str, int i, int quotes[2], char *var);
-static char	*get_substr_var(char *str, int i, char **env);
+
 char	*expand_vars(char *str, int i, int quotes[2], char **env);
 char	*mini_env(char *var, char **envp, int n);
 int	malloc_len(char const *s1);
@@ -55,6 +56,5 @@ char	**ft_matrix_replace_in(char ***big, char **small, int n);
 t_list	*fill_nodes(char **args, int i);
 size_t	ft_strlen_2(char **s);
 void	free_content(void *content);
-
-
+char **split_string(const char *str, const char *delimiters);
 # endif

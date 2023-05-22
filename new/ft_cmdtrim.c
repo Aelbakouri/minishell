@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:57 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 07:50:11 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/22 01:05:22 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdio.h>
+
 #include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "parser.h"
 
 // int main() {
 //     char* input;

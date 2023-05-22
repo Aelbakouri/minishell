@@ -150,7 +150,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	while (i++ < start)
 		s++;
-	strlcpy(substr, s, len + 1);
+	ft_strlcpy(substr, s, len + 1);
 	return (substr);
 }
 

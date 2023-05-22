@@ -2,8 +2,8 @@ NAME = hello.out
 CC			= gcc
 # CFLAGS		= -Wall -Werror -Wextra
 # SRCS = $(wildcard src/*.c)
-SRCS = expand.c main.c ft_strtrim_all.c
-LIBFT		= libft/libft.a
+SRCS = expand.c main.c  ft_cmdtrim.c
+LIBFT		= libft/bin/libft.a
 
 OBJS = $(SRCS:.c=.o)
 flags = -Wall -Werror -Wextra
@@ -17,7 +17,7 @@ flags = -Wall -Werror -Wextra
 
 $(NAME): $(OBJS)
 	${MAKE} -C libft
-	$(CC)  -o $(NAME) $(OBJS) $(LIBFT)
+	$(CC)  -o $(NAME) $(OBJS) $(LIBFT) -lreadline
 	@rm $(OBJS)
 
 # -fsanitize=address -G

@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:33:07 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 11:03:04 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 11:42:14 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,35 +75,62 @@
 //         return NULL;
 //     return words;
 // }
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	unsigned int	i;
+	size_t			size_src;
 
-// char	*substr(char const *s, unsigned int start, size_t len)
-// {
-// 	size_t	s_len;
-// 	char	*substr;
-// 	size_t	i;
+	i = 0;
+	if (src == NULL)
+		return (0);
+	size_src = strlen(src);
+	if ((int)size < 0)
+		size = size_src + 1;
+	if (size >= 2 && size_src != 0)
+	{
+		while (i < size - 1)
+		{
+			if (i < size_src)
+				dst[i] = src[i];
+			else if (i == size_src)
+				dst[i] = '\0';
+			i++;
+		}
+	}
+	if (size != 0)
+		dst[i] = '\0';
+	return (size_src);
+}
 
-// 	if (!s)
-// 		return (NULL);
-// 	s_len = strlen(s);
-// 	i = 0;
-// 	if (len > s_len)
-// 		len = s_len;
-// 	if (start >= s_len)
-// 	{
-// 		substr = (char *)malloc(1);
-// 		if (substr == NULL)
-// 			return (NULL);
-// 		substr[0] = '\0';
-// 		return (substr);
-// 	}
-// 	substr = (char *)malloc(len + 1);
-// 	if (substr == NULL)
-// 		return (NULL);
-// 	while (i++ < start)
-// 		s++;
-// 	strlcpy(substr, s, len + 1);
-// 	return (substr);
-// }
+
+char	*substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	s_len;
+	char	*substr;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	s_len = strlen(s);
+	i = 0;
+	if (len > s_len)
+		len = s_len;
+	if (start >= s_len)
+	{
+		substr = (char *)malloc(1);
+		if (substr == NULL)
+			return (NULL);
+		substr[0] = '\0';
+		return (substr);
+	}
+	substr = (char *)malloc(len + 1);
+	if (substr == NULL)
+		return (NULL);
+	while (i++ < start)
+		s++;
+	ft_strlcpy(substr, s, len + 1);
+	return (substr);
+}
 
 
 static int	ft_count_words(char *s, char *set, int count)
@@ -195,7 +222,7 @@ size_t	ft_strlen_2(char **s)
 int main(int ac, char  **av)
 {
     // char *input = readline("  : ");
-	char **str = ft_cmdsubsplit(">MAkefile >ll", "<|>");
+	char **str = ft_cmdsubsplit(">MAkefile >ll'<makefile'", "<|>");
 	int len = ft_strlen_2(str);
 	int i = 0;
 	while (i < len)

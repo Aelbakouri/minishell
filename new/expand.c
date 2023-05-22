@@ -6,13 +6,10 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:54 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/18 13:19:11 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/21 11:21:11 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 #include "parser.h"
 
 char	*expand_path(char *str, int i, int quotes[2], char *var)
