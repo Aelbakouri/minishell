@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:33:07 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 11:42:14 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:57:30 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "parser.h"
 
 // static int count_words(const char *str, const char *delimiters) {
 //     int count = 0, in_quotes = 0;
@@ -75,32 +76,7 @@
 //         return NULL;
 //     return words;
 // }
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	unsigned int	i;
-	size_t			size_src;
 
-	i = 0;
-	if (src == NULL)
-		return (0);
-	size_src = strlen(src);
-	if ((int)size < 0)
-		size = size_src + 1;
-	if (size >= 2 && size_src != 0)
-	{
-		while (i < size - 1)
-		{
-			if (i < size_src)
-				dst[i] = src[i];
-			else if (i == size_src)
-				dst[i] = '\0';
-			i++;
-		}
-	}
-	if (size != 0)
-		dst[i] = '\0';
-	return (size_src);
-}
 
 
 char	*substr(char const *s, unsigned int start, size_t len)
@@ -209,25 +185,25 @@ char	**ft_cmdsubsplit(char const *s, char *set)
 }
 
 
-size_t	ft_strlen_2(char **s)
-{
-	size_t	len;
+// size_t	ft_strlen_2(char **s)
+// {
+// 	size_t	len;
 
-	len = 0;
-	while (s[len] != 0)
-		len++;
-	return (len);
-}
+// 	len = 0;
+// 	while (s[len] != 0)
+// 		len++;
+// 	return (len);
+// }
 
-int main(int ac, char  **av)
-{
-    // char *input = readline("  : ");
-	char **str = ft_cmdsubsplit(">MAkefile >ll'<makefile'", "<|>");
-	int len = ft_strlen_2(str);
-	int i = 0;
-	while (i < len)
-	{
-		printf("%s\n", str[i++]);
-	}
+// int main(int ac, char  **av)
+// {
+//     // char *input = readline("  : ");
+// 	char **str = ft_cmdsubsplit(">MAkefile >ll'<makefile'", "<|>");
+// 	int len = ft_strlen_2(str);
+// 	int i = 0;
+// 	while (i < len)
+// 	{
+// 		printf("%s\n", str[i++]);
+// 	}
 
-}
+// }

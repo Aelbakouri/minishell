@@ -57,4 +57,6 @@ t_list	*fill_nodes(char **args, int i);
 size_t	ft_strlen_2(char **s);
 void	free_content(void *content);
 char **split_string(const char *str, const char *delimiters);
+char	**ft_cmdsubsplit(char const *s, char *set);
+
 # endif
