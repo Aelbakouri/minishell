@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:18:00 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 09:27:25 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/26 10:35:58 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static t_mini	*mini_init(void)
 		return (NULL);
 	mini->full_cmd = NULL;
 	mini->full_path = NULL;
-	mini->infile = STDIN_FILENO;
-	mini->outfile = STDOUT_FILENO;
+	mini->infile = STDIN;
+	mini->outfile = STDOUT;
 	return (mini);
 }
 

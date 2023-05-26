@@ -1,30 +1,99 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 09:16:53 by ael-bako          #+#    #+#             */
+/*   Updated: 2023/05/26 10:52:05 by ael-bako         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
-size_t	ft_strlen_2(char **s)
-{
-	size_t	len;
+// extern int	g_status;
 
-	len = 0;
-	while (s[len] != 0)
-		len++;
-	return (len);
+// static void	mini_getpid(t_prompt *p)
+// {
+// 	pid_t	pid;
+
+// 	pid = fork();
+// 	if (pid < 0)
+// 	{
+// 		mini_perror(FORKERR, NULL, 1);
+// 		ft_free_matrix(&p->envp);
+// 		exit(1);
+// 	}
+// 	if (!pid)
+// 	{
+// 		ft_free_matrix(&p->envp);
+// 		exit(1);
+// 	}
+// 	waitpid(pid, NULL, 0);
+// 	p->pid = pid - 1;
+// }
+
+static t_prompt	init_vars(t_prompt prompt, char *str, char **argv)
+{
+	char	*num;
+
+	str = getcwd(NULL, 0);
+	prompt.envp = mini_setenv("PWD", str, prompt.envp, 3);
+	free(str);
+	str = mini_getenv("SHLVL", prompt.envp, 5);
+	if (!str || ft_atoi(str) <= 0)
+		num = ft_strdup("1");
+	else
+		num = ft_itoa(ft_atoi(str) + 1);
+	free(str);
+	prompt.envp = mini_setenv("SHLVL", num, prompt.envp, 5);
+	free(num);
+	str = mini_getenv("PATH", prompt.envp, 4);
+	if (!str)
+		prompt.envp = mini_setenv("PATH", \
+		"/usr/local/sbin:/usr/local/bin:/usr/bin:/bin", prompt.envp, 4);
+	free(str);
+	str = mini_getenv("_", prompt.envp, 1);
+	if (!str)
+		prompt.envp = mini_setenv("_", argv[0], prompt.envp, 1);
+	free(str);
+	return (prompt);
 }
 
-int main(int ac, char **av, char **env)
+static t_prompt	init_prompt(char **argv, char **envp)
 {
-	char **strtrim = split_string(readline("$minishell: "), " ");
-	int len = ft_strlen_2(strtrim), i = -1, quotes[2];
-	char **subsplit;
-	while (strtrim[++i])
-	{
-		strtrim[i] = expand_vars(strtrim[i], -1, quotes, env);
-		strtrim[i] = expand_path(strtrim[i], -1, quotes, mini_env("HOME", env, 4));
-		subsplit = ft_cmdsubsplit(strtrim[i], "<|>");
-		ft_matrix_replace_in(&strtrim, subsplit, i);
-		strtrim[i] = ft_strtrim_all(strtrim[i], 0, 0);
-	}
+	t_prompt	prompt;
+	char		*str;
 
-	i = -1;
-	while (strtrim[++i])
-		printf("%s\n", strtrim[i]);
+	str = NULL;
+	prompt.cmds = NULL;
+	prompt.envp = ft_dup_matrix(envp);
+	// g_status = 0;
+	// mini_getpid(&prompt);
+	prompt = init_vars(prompt, str, argv);
+	return (prompt);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	// char				*str;
+	char				*out;
+	t_prompt			prompt;
+
+	prompt = init_prompt(argv, envp);
+	while (argv && argc)
+	{
+		// signal(SIGINT, handle_sigint);
+		// signal(SIGQUIT, SIG_IGN);
+		// str = mini_getprompt(prompt);
+		// if (str)
+		// 	out = readline(str);
+		// else
+		out = readline("minishell $ ");
+		// free(str);
+		if (!check_args(out, &prompt))
+			break ;
+	}
+	// exit(g_status);
 }
