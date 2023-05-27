@@ -6,13 +6,15 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 10:31:23 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 09:31:58 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/27 08:54:24 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
 // extern int	g_status;
+
+
 
 size_t	ft_strlen_2(char **s)
 {

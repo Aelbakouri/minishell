@@ -6,13 +6,33 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:16 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 09:32:07 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/27 08:54:37 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
 extern int	g_status;
+
+char	*mini_env(char *var, char **envp, int n)
+{
+	int	i;
+	int	n2;
+
+	i = 0;
+	if (n < 0)
+		n = strlen(var);
+	while (!strchr(var, '=') && envp && envp[i])
+	{
+		n2 = n;
+		if (n2 < ft_strchr_i(envp[i], '='))
+			n2 = ft_strchr_i(envp[i], '=');
+		if (!strncmp(envp[i], var, n2))
+			return (ft_substr(envp[i], n2 + 1, strlen(envp[i])));
+		i++;
+	}
+	return (NULL);
+}
 
 static char	**split_all(char **args, t_prompt *prompt)
 {
@@ -47,15 +67,6 @@ static void	*parse_args(char **args, t_prompt *p)
 	g_status = builtin(p, p->cmds, &is_exit, 0);
 	while (i-- > 0)
 		waitpid(-1, &g_status, 0);
-	if (!is_exit && g_status == 13)
-		g_status = 0;
-	if (g_status > 255)
-		g_status = g_status / 255;
-	if (args && is_exit)
-	{
-		ft_lstclear(&p->cmds, free_content);
-		return (NULL);
-	}
 	return (p);
 }
 
@@ -69,13 +80,13 @@ void	*check_args(char *out, t_prompt *p)
 		printf("exit\n");
 		return (NULL);
 	}
-	if (out[0] != '\0')
+	if (out[0])
 		add_history(out);
 	a = ft_cmdtrim(out, " ");
 	free(out);
 	if (!a)
 	{
-		mini_perror(QUOTE, NULL, 1);
+		// mini_perror(QUOTE, NULL, 1);
 		return ("");
 	}
 	p = parse_args(a, p);
