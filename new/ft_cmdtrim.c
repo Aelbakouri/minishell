@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:57 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/22 01:05:22 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/29 09:59:25 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,7 @@
 #include <stdlib.h>
 #include "parser.h"
 
-// int main() {
-//     char* input;
-
-//     // Use readline to read input from the user
-//     input = readline("  : ");
-
-//     // Add the input to the history
-//     // add_history(input);
-
-//     // Print the input
-//     printf("You entered: %s\n", input);
-
-//     // Free the memory used by the input
-//      free(input);
-
-//     return 0;
-// }
-
-char **split_string(const char *str, const char *delimiters)
+char **ft_cmdtrim(const char *str, const char *delimiters)
 {
     char **tokens = NULL;
     int num_tokens = 0;
@@ -71,6 +53,7 @@ char **split_string(const char *str, const char *delimiters)
             strncpy(token, &str[start], i - start);
             token[i - start] = '\0';
 
+
             tokens = realloc(tokens, (num_tokens + 1) * sizeof(char *));
             tokens[num_tokens] = token;
             num_tokens++;
@@ -84,15 +67,3 @@ char **split_string(const char *str, const char *delimiters)
     return tokens;
 }
 
-// int main(int ac, char  **av)
-// {
-//     char *input = readline("  : ");
-// 	char **str = split_string(input, " ");
-// 	int len = ft_strlen_2(str);
-// 	int i = 0;
-// 	while (i < len)
-// 	{
-// 		printf("%s\n", str[i++]);
-// 	}
-
-// }

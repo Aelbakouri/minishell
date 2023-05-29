@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:18:00 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/27 10:21:21 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:01:49 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_list	*fill_nodes(char **args, int i)
 		temp[0] = args;
 		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
 		if (i < 0)
-			return -1;
+			return NULL;
 			// return (stop_fill(cmds[0], args, temp[1]));
 		if (!args[i])
 			break ;

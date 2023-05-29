@@ -6,95 +6,40 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 10:31:23 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/27 08:54:24 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:13:56 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-// extern int	g_status;
 
-
-
-size_t	ft_strlen_2(char **s)
+void	*mini_perror(int err_type, char *param, int err)
 {
-	size_t	len;
-
-	len = 0;
-	while (s[len] != 0)
-		len++;
-	return (len);
-}
-
-t_list	*fill_nodes(char **args, int i)
-{
-	t_list	*cmds[2];
-	char	**temp[2];
-
-	cmds[0] = NULL;
-	temp[1] = get_trimmed(args);
-	while (args[++i])
-	{
-		cmds[1] = ft_lstlast(cmds[0]);
-		if (i == 0 || (args[i][0] == '|' && args[i + 1] && args[i + 1][0]))
-		{
-			i += args[i][0] == '|';
-			ft_lstadd_back(&cmds[0], ft_lstnew(mini_init()));
-			cmds[1] = ft_lstlast(cmds[0]);
-		}
-		temp[0] = args;
-		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
-		if (i < 0)
-			return (stop_fill(cmds[0], args, temp[1]));
-		if (!args[i])
-			break ;
-	}
-	ft_free_matrix(&temp[1]);
-	ft_free_matrix(&args);
-	return (cmds[0]);
-}
-
-char	**ft_matrix_replace_in(char ***big, char **small, int n)
-{
-	char	**aux;
-	int		i[3];
-
-	i[0] = -1;
-	i[1] = -1;
-	i[2] = -1;
-	if (!big || !*big || n < 0 || n >= ft_strlen_2(*big))
-		return (NULL);
-	aux = ft_calloc(ft_strlen_2(*big) + ft_strlen_2(small), sizeof(char *));
-	while (aux && big[0][++i[0]])
-	{
-		if (i[0] != n)
-			aux[++i[2]] = ft_strdup(big[0][i[0]]);
-		else
-		{
-			while (small && small[++i[1]])
-				aux[++i[2]] = ft_strdup(small[i[1]]);
-		}
-	}
-	ft_free_matrix(big);
-	*big = aux;
-	return (*big);
-}
-
-void	ft_free_matrix(char ***m)
-{
-	int	i;
-
-	i = 0;
-	while (m && m[0] && m[0][i])
-	{
-		free(m[0][i]);
-		i++;
-	}
-	if (m)
-	{
-		free(m[0]);
-		*m = NULL;
-	}
+	// g_status = err;
+	if (err_type == QUOTE)
+		ft_putstr_fd("minishell: error while looking for matching quote\n", 2);
+	else if (err_type == NDIR)
+		ft_putstr_fd("minishell: No such file or directory: ", 2);
+	else if (err_type == NPERM)
+		ft_putstr_fd("minishell: permission denied: ", 2);
+	else if (err_type == NCMD)
+		ft_putstr_fd("minishell: command not found: ", 2);
+	else if (err_type == DUPERR)
+		ft_putstr_fd("minishell: dup2 failed\n", 2);
+	else if (err_type == FORKERR)
+		ft_putstr_fd("minishell: fork failed\n", 2);
+	else if (err_type == PIPERR)
+		ft_putstr_fd("minishell: error creating pipe\n", 2);
+	else if (err_type == PIPENDERR)
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+	else if (err_type == MEM)
+		ft_putstr_fd("minishell: no memory left on device\n", 2);
+	else if (err_type == IS_DIR)
+		ft_putstr_fd("minishell: Is a directory: ", 2);
+	else if (err_type == NOT_DIR)
+		ft_putstr_fd("minishell: Not a directory: ", 2);
+	ft_putendl_fd(param, 2);
+	return (NULL);
 }
 
 int	get_fd(int oldfd, char *path, int flags[2])
@@ -212,7 +157,7 @@ t_mini	*get_infile2(t_mini *node, char **args, int *i)
 	if (args[++(*i)])
 	{
 		aux[0] = args[*i];
-		node->infile = get_here_doc(str, aux);
+		// node->infile = get_here_doc(str, aux);
 	}
 	if (!args[*i] || node->infile == -1)
 	{
@@ -224,18 +169,4 @@ t_mini	*get_infile2(t_mini *node, char **args, int *i)
 		}
 	}
 	return (node);
-}
-
-void	free_content(void *content)
-{
-	t_mini	*node;
-
-	node = content;
-	ft_free_matrix(&node->full_cmd);
-	free(node->full_path);
-	if (node->infile != STDIN_FILENO)
-		close(node->infile);
-	if (node->outfile != STDOUT_FILENO)
-		close(node->outfile);
-	free(node);
 }

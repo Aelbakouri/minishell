@@ -2,7 +2,7 @@ NAME = hello.out
 CC			= gcc
 # CFLAGS		= -Wall -Werror -Wextra
 # SRCS = $(wildcard src/*.c)
-SRCS = expand.c main.c  ft_cmdtrim.c ft_cmdsubsplit.c ft_strtrim_all.c
+SRCS = expand.c main.c fill_node.c ft_cmdtrim.c ft_cmdsubsplit.c parse_args.c utils.c ft_strtrim_all.c
 LIBFT		= libft/bin/libft.a
 
 OBJS = $(SRCS:.c=.o)

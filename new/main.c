@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:53 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/27 08:37:34 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:20:41 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@ int	main(int argc, char **argv, char **envp)
 {
 	char				*out;
 	t_prompt			prompt;
+	t_prompt			*p;
+	t_list				*cmds;
 
 	prompt = init_prompt(argv, envp);
 	while (argv && argc)
 	{
 		out = readline("minishell: ");
-		if (!check_args(out, &prompt))
+		if (!(p = check_args(out, &prompt)))
 			break ;
+		
+		while ()
 	}
 	// exit(g_status);
 }

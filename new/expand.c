@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:54 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/21 11:21:11 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:15:08 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,6 @@ char	*expand_path(char *str, int i, int quotes[2], char *var)
 	}
 	free(var);
 	return (str);
-}
-
-char	*mini_env(char *var, char **envp, int n)
-{
-	int	i;
-	int	n2;
-
-	i = 0;
-	if (n < 0)
-		n = strlen(var);
-	while (!strchr(var, '=') && envp && envp[i])
-	{
-		n2 = n;
-		if (n2 < ft_strchr_i(envp[i], '='))
-			n2 = ft_strchr_i(envp[i], '=');
-		if (!strncmp(envp[i], var, n2))
-			return (ft_substr(envp[i], n2 + 1, strlen(envp[i])));
-		i++;
-	}
-	return (NULL);
 }
 
 static char	*get_substr_var(char *str, int i, char **env)
