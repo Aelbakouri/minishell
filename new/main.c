@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:53 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/30 14:14:39 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:08:43 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@ int	main(int argc, char **argv, char **envp)
 			i = -1;
 			printf("full_cmd: ");
 			while (mini->full_cmd[++i])
-				printf("%s; ",mini->full_cmd[i]);
-			printf("\tinfile: %d\t outfile: %d\t full_path: %s\n", mini->infile, mini->outfile, mini->full_path);
+				printf(" %s, ",mini->full_cmd[i]);
+			printf("\ninfile: %d\n outfile: %d\n full_path: %s\n", mini->infile, mini->outfile, mini->full_path);
+			printf("************************************************************************************\n");
 			cmds = cmds->next;
 		}
 	}
 	// exit(g_status);
 }
+
+// <Makefile cat| echo "$PWD 'hola" ~/src | 'tr' -d / >outfile
