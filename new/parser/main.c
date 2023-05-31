@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:53 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/30 19:46:16 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:59:14 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,4 @@ int	main(int argc, char **argv, char **envp)
 			cmds = cmds->next;
 		}
 	}
-	// exit(g_status);
 }
-
-// <Makefile cat| echo "$PWD 'hola" ~/src | 'tr' -d / >outfile
