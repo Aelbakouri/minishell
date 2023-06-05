@@ -2,7 +2,7 @@ NAME = hello.out
 CC			= gcc
 
 SRCS = expand.c main.c fill_node.c ft_cmdtrim.c ft_cmdsubsplit.c parse_args.c utils.c ft_strtrim_all.c
-LIBFT		= libft/bin/libft.a
+LIBFT		= libft/libft.a
 
 OBJS = $(SRCS:.c=.o)
 flags = -Wall -Werror -Wextra

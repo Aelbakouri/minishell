@@ -57,7 +57,9 @@ void	ft_free_matrix(char ***m);
 void	*mini_perror(int err_type, char *param, int err);
 char	**ft_matrix_replace_in(char ***big, char **small, int n);
 t_list	*fill_nodes(char **args, int i);
-char **ft_cmdtrim(const char *str, const char *delimiters);
+// int		ft_count_words(const char *s, char *c, int i[2]);
+char	**ft_cmdtrim(char const *s, char *set);
+// char	**ft_fill_array(char **aux, char const *s, char *set, int i[3]);
 char	**ft_cmdsubsplit(char const *s, char *set);
 void	*check_args(char *out, t_prompt *p);
 

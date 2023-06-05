@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:54 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/31 09:58:18 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:53:39 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ char	*expand_path(char *str, int i, int quotes[2], char *var)
 		{
 			aux = ft_substr(str, 0, i);
 			path = ft_strjoin(aux, var);
-			free(aux);
+			// free(aux);
 			aux = ft_substr(str, i + 1, ft_strlen(str));
-			free(str);
+			// free(str);
 			str = ft_strjoin(path, aux);
-			free(aux);
-			free(path);
+			// free(aux);
+			// free(path);
 			return (expand_path(str, i + ft_strlen(var) - 1, quotes, var));
 		}
 	}
-	free(var);
+	// free(var);
 	return (str);
 }
 

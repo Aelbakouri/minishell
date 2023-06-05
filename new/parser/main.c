@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:53 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/31 09:59:14 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:47:19 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		out = readline("minishell: ");
 		if (!(p = check_args(out, &prompt)))
-			break ;
+			return NULL;
 		cmds = p->cmds;
 		while (cmds)
 		{
@@ -50,3 +50,4 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 }
+// <Makefile cat| echo "$PWD 'hola'" ~/src | 'tr' -d / >outfile

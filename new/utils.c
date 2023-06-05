@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 10:31:23 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/29 10:13:56 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:36:43 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	*mini_perror(int err_type, char *param, int err)
 	if (err_type == QUOTE)
 		ft_putstr_fd("minishell: error while looking for matching quote\n", 2);
 	else if (err_type == NDIR)
-		ft_putstr_fd("minishell: No such file or directory: ", 2);
-	else if (err_type == NPERM)
+		ft_putstr_fd("minishell: No such file or directory: ", 2);else if (err_type == NPERM)
 		ft_putstr_fd("minishell: permission denied: ", 2);
 	else if (err_type == NCMD)
 		ft_putstr_fd("minishell: command not found: ", 2);

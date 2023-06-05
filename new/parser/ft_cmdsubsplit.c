@@ -6,47 +6,11 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:33:07 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/29 09:44:21 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:39:57 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "parser.h"
-
-
-char	*substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	s_len;
-	char	*substr;
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	s_len = strlen(s);
-	i = 0;
-	if (len > s_len)
-		len = s_len;
-	if (start >= s_len)
-	{
-		substr = (char *)malloc(1);
-		if (substr == NULL)
-			return (NULL);
-		substr[0] = '\0';
-		return (substr);
-	}
-	substr = (char *)malloc(len + 1);
-	if (substr == NULL)
-		return (NULL);
-	while (i++ < start)
-		s++;
-	ft_strlcpy(substr, s, len + 1);
-	return (substr);
-}
-
 
 static int	ft_count_words(char *s, char *set, int count)
 {
@@ -96,7 +60,7 @@ static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
 		}
 		else
 			i[0]++;
-		aux[i[2]++] = substr(s, i[1], i[0] - i[1]);
+		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 	}
 	return (aux);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:16 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/31 10:00:05 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:45:46 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	*check_args(char *out, t_prompt *p)
 	free(out);
 	if (!a)
 	{
-		// mini_perror(QUOTE, NULL, 1);
+		mini_perror(QUOTE, NULL, 1);
 		return ("");
 	}
 	p = parse_args(a, p);

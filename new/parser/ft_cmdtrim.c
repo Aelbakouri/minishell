@@ -6,53 +6,88 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:57 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/31 10:01:28 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:10:19 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdio.h>
-
-#include <stdlib.h>
 #include "parser.h"
 
-char    **ft_cmdtrim(const char *str, const char *delimiters)
+static int	ft_count_words(const char *s, char *c, int i[2])
 {
-    char **tokens = NULL;
-    int num_tokens = 0;
-    int in_quote = 0;
-    int i = 0;
+	int		q[2];
 
-    while (str[i] != '\0')
-    {
-        while (strchr(delimiters, str[i]) != NULL)
-            i++;
-        int start = i;
-        while (str[i] != '\0')
-        {
-            if (!in_quote && strchr(delimiters, str[i]) != NULL)
-                break;
+	q[0] = 0;
+	q[1] = 0;
+	while (s[i[0]] != '\0')
+	{
+		if (!ft_strchr(c, s[i[0]]))
+		{
+			i[1]++;
+			while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0')
+			{
+				if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\''))
+					q[1] = s[i[0]];
+				q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
+				q[1] *= q[0] != 0;
+				i[0]++;
+			}
+			if (q[0])
+				return (-1);
+		}
+		else
+			i[0]++;
+	}
+	return (i[1]);
+}
 
-            if (str[i] == '\'' || str[i] == '\"')
-                in_quote = !in_quote;
+static char	**ft_fill_array(char **aux, char const *s, char *set, int i[3])
+{
+	int		s_len;
+	int		q[2];
 
-            i++;
-        }
-        if (i > start)
-        {
-            char *token = malloc((i - start + 1) * sizeof(char));
-            strncpy(token, &str[start], i - start);
-            token[i - start] = '\0';
+	q[0] = 0;
+	q[1] = 0;
+	s_len = ft_strlen(s);
+	while (s[i[0]])
+	{
+		while (ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
+			i[0]++;
+		i[1] = i[0];
+		while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
+		{
+			q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
+			q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;
+			i[0]++;
+		}
+		if (i[1] >= s_len)
+			aux[i[2]++] = "\0";
+		else
+			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+	}
+	return (aux);
+}
 
-            tokens = realloc(tokens, (num_tokens + 1) * sizeof(char *));
-            tokens[num_tokens] = token;
-            num_tokens++;
-        }
-    }
-    tokens = realloc(tokens, (num_tokens + 1) * sizeof(char *));
-    tokens[num_tokens] = NULL;
+char	**ft_cmdtrim(char const *s, char *set)
+{
+	char	**aux;
+	int		nwords;
+	int		i[3];
+	int		counts[2];
 
-    return tokens;
+	i[0] = 0;
+	i[1] = 0;
+	i[2] = 0;
+	counts[0] = 0;
+	counts[1] = 0;
+	if (!s)
+		return (NULL);
+	nwords = ft_count_words(s, set, counts);
+	if (nwords == -1)
+		return (NULL);
+	aux = malloc((nwords + 1) * sizeof(char *));
+	if (aux == NULL)
+		return (NULL);
+	aux = ft_fill_array(aux, s, set, i);
+	aux[nwords] = NULL;
+	return (aux);
 }
