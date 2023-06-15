@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:16 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/31 18:45:46 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:24:13 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	**split_all(char **args, t_prompt *prompt)
 
 static void	*parse_args(char **args, t_prompt *p)
 {
-	int	i;
+	// int	i;
 
 	p->cmds = fill_nodes(split_all(args, p), -1);
 	if (!p->cmds)
@@ -67,7 +67,7 @@ static void	*parse_args(char **args, t_prompt *p)
 void	*check_args(char *out, t_prompt *p)
 {
 	char	**a;
-	t_mini	*n;
+	// t_mini	*n;
 
 	if (!out)
 	{

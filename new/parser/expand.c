@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:54 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/31 17:53:39 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:57:42 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ static char	*get_substr_var(char *str, int i, char **env)
 	char	*path;
 	char	*var;
 
-	pos = ft_strchars_i(&str[i], "|\"\'$?>< ") + (ft_strchr("$?", str[i]) != 0);
+	pos = ft_strchars_i(&str[i], "|\"\'$?><- ") + (ft_strchr("$?", str[i]) != 0);
 	if (pos == -1)
 		pos = ft_strlen(str) - 1;
 	aux = ft_substr(str, 0, i - 1);
 	var = mini_env(&str[i], env, \
-		ft_strchars_i(&str[i], "\"\'$|>< "));
+		ft_strchars_i(&str[i], "\"\'$|><- "));
 	if (!var && str[i] == '$')
 		var = ft_itoa(0);
 	else if (!var && str[i] == '?')
@@ -76,8 +76,8 @@ char	*expand_vars(char *str, int i, int quotes[2], char **env)
 		quotes[0] = (quotes[0] + (!quotes[1] && str[i] == '\'')) % 2;
 		quotes[1] = (quotes[1] + (!quotes[0] && str[i] == '\"')) % 2;
 		if (!quotes[0] && str[i] == '$' && str[i + 1] && \
-			((ft_strchars_i(&str[i + 1], "/~%^{}:; ") && !quotes[1]) || \
-			(ft_strchars_i(&str[i + 1], "/~%^{}:;\"") && quotes[1])))
+			((ft_strchars_i(&str[i + 1], "/~%^{}:;- ") && !quotes[1]) || \
+			(ft_strchars_i(&str[i + 1], "/~%^{}:;\"-") && quotes[1])))
 			return (expand_vars(get_substr_var(str, ++i, env), -1, \
 				quotes, env));
 	}

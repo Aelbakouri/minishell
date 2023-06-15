@@ -6,11 +6,31 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:54 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/29 10:15:08 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:42:16 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+char	*mini_env(char *var, char **envp, int n)
+{
+	int	i;
+	int	n2;
+
+	i = 0;
+	if (n < 0)
+		n = strlen(var);
+	while (!strchr(var, '=') && envp && envp[i])
+	{
+		n2 = n;
+		if (n2 < ft_strchr_i(envp[i], '='))
+			n2 = ft_strchr_i(envp[i], '=');
+		if (!ft_strncmp(envp[i], var, n2))
+			return (ft_substr(envp[i], n2 + 1, strlen(envp[i])));
+		i++;
+	}
+	return (NULL);
+}
 
 char	*expand_path(char *str, int i, int quotes[2], char *var)
 {
@@ -86,7 +106,9 @@ char	*expand_vars(char *str, int i, int quotes[2], char **env)
 
 
 
-// int main(int ac, char **av)
-// {
-// 	printf("%s\n", expand_variable("$PWD"));
-// }
+int main(int ac, char **av, char **env)
+{
+	int q[2];
+
+	printf("%s\n", expand_vars("$USER_$PWD", -1, q, env));
+}

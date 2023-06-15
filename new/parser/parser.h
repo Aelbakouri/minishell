@@ -52,14 +52,14 @@ t_mini	*get_infile2(t_mini *node, char **args, int *i);
 t_mini	*get_infile1(t_mini *node, char **args, int *i);
 t_mini	*get_outfile2(t_mini *node, char **args, int *i);
 t_mini	*get_outfile1(t_mini *node, char **args, int *i);
-int		get_fd(int oldfd, char *path, int flags[2]);
+int		get_fd(int *oldfd, char *path, int flags[2]);
 void	ft_free_matrix(char ***m);
 void	*mini_perror(int err_type, char *param, int err);
 char	**ft_matrix_replace_in(char ***big, char **small, int n);
 t_list	*fill_nodes(char **args, int i);
-// int		ft_count_words(const char *s, char *c, int i[2]);
+int		get_here_doc(char *str[2], char *aux[2]);
 char	**ft_cmdtrim(char const *s, char *set);
-// char	**ft_fill_array(char **aux, char const *s, char *set, int i[3]);
+char	*get_here_str(char *str[2], size_t len, char *limit, char *warn);
 char	**ft_cmdsubsplit(char const *s, char *set);
 void	*check_args(char *out, t_prompt *p);
 
