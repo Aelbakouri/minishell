@@ -6,7 +6,7 @@ SRCS = expand.c  builtins/ft_pwd.c builtins/ft_exit.c builtins/ft_echo.c builtin
 
 LIBFT		= libft/libft.a
 
-CFLAGS 	= -Wextra -Werror -Wall
+CFLAGS 	= -Wextra -Werror -Wall -g3 -fsanitize=address
 
 OBJS	= $(SRCS:.c=.o)
 

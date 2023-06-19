@@ -52,7 +52,7 @@ enum	e_mini_error
 };
 
 char	*expand_path(char *str, int i, int quotes[2], char *var);
-char	*expand_vars(char *prev, char *str, int i, int quotes[2], t_prompt *prompt);
+char	*expand_vars(char *prev, char *str, int i, t_prompt *prompt);
 char	*mini_env(char *var, char **envp, int n);
 int		malloc_len(char const *s1);
 char	*ft_strtrim_all(char const *s1, int squote, int dquote);

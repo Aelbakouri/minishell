@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:53 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/06/17 19:12:33 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/19 09:59:45 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	search(char *str, char c)
 	return (-1);
 }
 
-int	exec_comm(t_prompt *p, t_mini *mini)
+void	exec_comm(t_prompt *p, t_mini *mini)
 {
 	char	*path;
 
@@ -122,8 +122,9 @@ int	exec_comm(t_prompt *p, t_mini *mini)
 		else
 			path = return_path(mini->full_cmd[0], p->envp);
 		execve(path, mini->full_cmd, p->envp);
-		g_status = 127;
-		return (perror("command not found"), exit(127), EXIT_FAILURE);
+		mini_perror(NCMD, *mini->full_cmd, 127);
+		return exit(127);
+		// return (perror("command not found"), exit(127), EXIT_FAILURE);
 }
 
 void	dup_pipex(int oldfd, int newfd)
@@ -288,6 +289,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!(p = check_args(out, &prompt)))
 			break ;
 		free(str);
+		// g_status = 0;
 		// system("leaks minishell");
 	}
 }

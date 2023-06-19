@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 11:54:54 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/06/17 12:54:23 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:21:15 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ static char	*get_substr_var(char *str, int i, t_prompt *prompt)
 	return (aux);
 }
 
-char	*expand_vars(char *prev, char *str, int i, int quotes[2], t_prompt *prompt)
+char	*expand_vars(char *prev, char *str, int i, t_prompt *prompt)
 {
+	int	quotes[2];
+
 	quotes[0] = 0;
 	quotes[1] = 0;
 	if (!ft_strncmp(prev, "<<", 3))
@@ -82,8 +84,8 @@ char	*expand_vars(char *prev, char *str, int i, int quotes[2], t_prompt *prompt)
 		if (!quotes[0] && str[i] == '$' && str[i + 1] && \
 			((ft_strchars_i(&str[i + 1], "/~%^{}:; ") && !quotes[1]) || \
 			(ft_strchars_i(&str[i + 1], "/~%^{}:;\"") && quotes[1])))
-			return (expand_vars(prev, get_substr_var(str, ++i, prompt), -1, \
-				quotes, prompt));
+			return (expand_vars(prev, get_substr_var(str, ++i, prompt),
+					-1, prompt));
 	}
 	return (str);
 }

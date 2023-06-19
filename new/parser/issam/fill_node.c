@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:18:00 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/06/16 11:34:22 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:25:09 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static t_mini	*get_params(t_mini *node, char **a[2], int *i)
 			node->full_cmd = ft_extend_matrix(node->full_cmd, a[1][*i]);
 		else
 		{
-			mini_perror(PIPENDERR, NULL, 2);
+			mini_perror(PIPENDERR, NULL, 258);
 			*i = -2;
 		}
 		return (node);
 	}
-	mini_perror(PIPENDERR, NULL, 2);
+	mini_perror(PIPENDERR, NULL, 258);
 	*i = -2;
 	return (node);
 }

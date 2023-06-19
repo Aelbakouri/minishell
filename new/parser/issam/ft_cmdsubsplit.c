@@ -6,11 +6,25 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 12:33:07 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/06/14 20:41:23 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:35:08 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+int	ft_scape(char *s, int i)
+{
+	int	len;
+
+	len = 0;
+	while ((s[i] == '<' && s[i - 1] == '<')
+		|| (s[i] == '>' && s[i - 1] == '>'))
+	{
+		i++;
+		len++;
+	}
+	return (len);
+}
 
 static int	ft_count_words(char *s, char *set, int count)
 {
@@ -35,9 +49,7 @@ static int	ft_count_words(char *s, char *set, int count)
 		}
 		else
 			q[2]++;
-		while ((s[q[2]] == '<' && s[q[2] - 1] == '<')
-			|| (s[q[2]] == '>' && s[q[2] - 1] == '>'))
-			q[2]++;
+		q[2] += ft_scape(s, q[2]);
 	}
 	return (count);
 }
@@ -62,9 +74,7 @@ static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
 		}
 		else
 			i[0]++;
-		while ((s[i[0]] == '<' && s[i[0] - 1] == '<')
-			|| (s[i[0]] == '>' && s[i[0] - 1] == '>'))
-			i[0]++;
+		i[0] += ft_scape(s, i[0]);
 		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 	}
 	return (aux);

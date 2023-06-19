@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:16:16 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/06/16 14:37:33 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:42:29 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ static char	**split_all(char **args, t_prompt *prompt)
 	char	**subsplit;
 	int		i;
 	int		quotes[2];
-	char	*tmp = "NULL";
+	char	*tmp;
 
+	tmp = "NULL";
 	i = -1;
 	while (args && args[++i])
 	{
 		args[i] = expand_path(args[i], -1, quotes, \
 			mini_env("HOME", prompt->envp, 4));
-		args[i] = expand_vars(tmp, args[i], -1, quotes, prompt);
+		args[i] = expand_vars(tmp, args[i], -1, prompt);
 		subsplit = ft_cmdsubsplit(args[i], "<|>");
 		ft_matrix_replace_in(&args, subsplit, i);
 		tmp = args[i];
@@ -72,40 +73,9 @@ static void	*parse_args(char **args, t_prompt *p)
 	return (p);
 }
 
-// void	*check_args(char *out, t_prompt *p)
-// {
-// 	char	**a;
-// 	t_mini	*n;
-
-// 	if (!out)
-// 	{
-// 		printf("exit\n");
-// 		return (NULL);
-// 	}
-// 	if (out[0])
-// 		add_history(out);
-// 	a = ft_cmdtrim(out, " \t");
-// 	free(out);
-// 	if (!a)
-// 	{
-// 		mini_perror(QUOTE, NULL, 1);
-// 		return ("");
-// 	}
-// 	p = parse_args(a, p);
-// 	// if (p && p->cmds)
-// 	// 	n = p->cmds->content;
-// 	// if (p && p->cmds && n && n->full_cmd && ft_lstsize(p->cmds) == 1)
-// 	// 	p->envp = mini_setenv("_", n->full_cmd[ft_matrixlen(n->full_cmd) - 1], \
-// 	// 		p->envp, 1);
-// 	// if (p && p->cmds)
-// 	// 	ft_lstclear(&p->cmds, free_content);
-// 	return (p);
-// }
-
 void	*check_args(char *out, t_prompt *p)
 {
 	char	**a;
-	// t_mini	*n;
 
 	if (!out)
 	{
