@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 10:31:23 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/06/19 09:40:23 by ael-bako         ###   ########.fr       */
+/*   Created: 2023/06/19 13:58:40 by ael-bako          #+#    #+#             */
+/*   Updated: 2023/06/19 20:07:28 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_status;
 
-int ft_unexpected(char c)
+int	ft_unexpected(char c)
 {
 	char	*unex;
 
@@ -26,6 +26,21 @@ int ft_unexpected(char c)
 		unex++;
 	}
 	return (0);
+}
+
+void	free_content(void *content)
+{
+	t_mini	*node;
+
+	node = content;
+	ft_free_matrix(&node->full_cmd);
+	if (node->full_path)
+		free(node->full_path);
+	if (node->infile != STDIN)
+		close(node->infile);
+	if (node->outfile != STDOUT)
+		close(node->outfile);
+	free(node);
 }
 
 void	*mini_perror(int err_type, char *param, int err)
@@ -47,154 +62,58 @@ void	*mini_perror(int err_type, char *param, int err)
 		ft_putstr_fd("minishell: error creating pipe\n", 2);
 	else if (err_type == PIPENDERR)
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'", 2);
-	else if (err_type == MEM)
-		ft_putstr_fd("minishell: no memory left on device\n", 2);
 	else if (err_type == IS_DIR)
 		ft_putstr_fd("minishell: Is a directory: ", 2);
-	else if (err_type == NOT_DIR)
+	else if (err_type == ç)
 		ft_putstr_fd("minishell: Not a directory: ", 2);
 	ft_putendl_fd(param, 2);
 	return (NULL);
 }
 
-int	get_fd(int *oldfd, char *path, int flags[2])
+char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 {
-	int	fd;
+	char	*temp;
 
-	if (*oldfd > 2)
-		close(*oldfd);
-	if (!path)
+	while (g_status != 130 && (!str[0] || ft_strncmp(str[0], limit, len) \
+		|| ft_strlen(limit) != len))
+	{
+		temp = str[1];
+		str[1] = ft_strjoin(str[1], str[0]);
+		free(temp);
+		free(str[0]);
+		str[0] = readline("> ");
+		if (!str[0])
+		{
+			printf("%s (wanted `%s\')\n", warn, limit);
+			break ;
+		}
+		temp = str[0];
+		str[0] = ft_strjoin(str[0], "\n");
+		free(temp);
+		len = ft_strlen(str[0]) - 1;
+	}
+	free(str[0]);
+	return (str[1]);
+}
+
+int	get_here_doc(char *str[2], char *aux[2])
+{
+	int		fd[2];
+
+	g_status = 0;
+	if (pipe(fd) == -1)
+	{
+		mini_perror(PIPERR, NULL, 1);
 		return (-1);
-	if (access(path, F_OK) == -1 && !flags[0])
-		mini_perror(NDIR, path, 127);
-	else if (!flags[0] && access(path, R_OK) == -1)
-		mini_perror(NPERM, path, 126);
-	else if (flags[0] && access(path, W_OK) == -1 && access(path, F_OK) == 0)
-		mini_perror(NPERM, path, 126);
-	if (flags[0] && flags[1])
-		fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0666);
-	else if (flags[0] && !flags[1])
-		fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	else if (!flags[0] && *oldfd != -1)
-		fd = open(path, O_RDONLY);
-	else
-		fd = *oldfd;
-	return (fd);
-}
-
-t_mini	*get_outfile1(t_mini *node, char **args[2], int *i)
-{
-	char	*nl;
-	int		flags[2];
-
-	flags[0] = 1;
-	flags[1] = 0;
-	nl = "minishell: syntax error near unexpected token `newline'";
-	(*i)++;
-	if (args[1][*i] && !ft_unexpected(args[0][*i][0]))
-		node->outfile = get_fd(&node->outfile, args[1][*i], flags);
-	if (!args[1][*i] || node->outfile == -1 || ft_unexpected(args[0][*i][0]))
-	{
-		*i = -1;
-		if (node->outfile != -1)
-		{
-			ft_putendl_fd(nl, 2);
-			g_status = 258;
-		}
-		else
-			g_status = 1;
 	}
-	return (node);
-}
-
-t_mini	*get_outfile2(t_mini *node, char **args[2], int *i)
-{
-	char	*nl;
-	int		flags[2];
-
-	flags[0] = 1;
-	flags[1] = 1;
-	nl = "minishell: syntax error near unexpected token `newline'";
-	if (!(ft_strlen(args[0][*i]) > 2) && args[1][++(*i)] && !ft_unexpected(args[0][*i][0]))
-		node->outfile = get_fd(&node->outfile, args[1][*i], flags);
-	if (!args[1][*i] || node->outfile == -1 || ft_unexpected(args[0][*i][0]))
+	str[1] = get_here_str(str, 0, aux[0], aux[1]);
+	write(fd[1], str[1], ft_strlen(str[1]));
+	free(str[1]);
+	close(fd[1]);
+	if (g_status == 130)
 	{
-		*i = -1;
-		if (node->outfile != -1)
-		{
-			ft_putendl_fd(nl, 2);
-			g_status = 258;
-		}
-		else
-			g_status = 1;
+		close(fd[0]);
+		return (-1);
 	}
-	return (node);
-}
-
-t_mini	*get_infile1(t_mini *node, char **args[2], int *i)
-{
-	char	*nl;
-	int		flags[2];
-
-	flags[0] = 0;
-	flags[1] = 0;
-	nl = "minishell: syntax error near unexpected token `newline'";
-	(*i)++;
-	if (args[1][*i] && !ft_unexpected(args[0][*i][0]))
-		node->infile = get_fd(&node->infile, args[1][*i], flags);
-	if (!args[1][*i] || node->infile == -1 || ft_unexpected(args[0][*i][0]))
-	{
-		*i = -1;
-		if (node->infile != -1)
-		{
-			ft_putendl_fd(nl, 2);
-			g_status = 258;
-		}
-		else
-			g_status = 1;
-	}
-	return (node);
-}
-
-t_mini	*get_infile2(t_mini *node, char **args[2], int *i)
-{
-	char	*aux[2];
-	char	*nl;
-	char	*str[2];
-
-	str[0] = NULL;
-	str[1] = NULL;
-	aux[0] = NULL;
-	aux[1] = "minishell: warning: here-document delimited by end-of-file";
-	nl = "minishell: syntax error near unexpected token `newline'";
-	if (!(ft_strlen(args[0][*i]) > 2) && args[1][++(*i)] && !ft_unexpected(args[0][*i][0]))
-	{
-		aux[0] = args[1][*i];
-		node->infile = get_here_doc(str, aux);
-	}
-	if (!args[1][*i] || node->infile == -1 || ft_unexpected(args[0][*i][0]))
-	{
-		*i = -1;
-		if (node->infile != -1)
-		{
-			ft_putendl_fd(nl, 2);
-			g_status = 258;
-		}
-	}
-	return (node);
-}
-
-void	free_content(void *content)
-{
-	t_mini	*node;
-
-	node = content;
-	ft_free_matrix(&node->full_cmd);
-	if (node->full_path)
-		free(node->full_path);
-	if (node->infile != STDIN)
-		close(node->infile);
-	if (node->outfile != STDOUT)
-		close(node->outfile);
-	free(node);
+	return (fd[0]);
 }

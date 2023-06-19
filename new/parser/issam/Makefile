@@ -2,11 +2,11 @@ NAME	= minishell
 
 CC = gcc
 
-SRCS = expand.c  builtins/ft_pwd.c builtins/ft_exit.c builtins/ft_echo.c builtins/ft_cd.c builtins/ft_env.c builtins/ft_unset.c builtins/ft_export.c heredoc.c main.c fill_node.c ft_cmdtrim.c ft_cmdsubsplit.c parse_args.c utils.c ft_strtrim_all.c
+SRCS = expand.c  params.c builtins/ft_pwd.c builtins/ft_exit.c builtins/ft_echo.c builtins/ft_cd.c builtins/ft_env.c builtins/ft_unset.c builtins/ft_export.c main.c fill_node.c ft_strtrim.c ft_cmdsubsplit.c parse_args.c utils.c
 
 LIBFT		= libft/libft.a
 
-CFLAGS 	= -Wextra -Werror -Wall -g3 -fsanitize=address
+CFLAGS 	= -Wextra -Werror -Wall
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouchaf <ibouchaf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:58:19 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/06/14 14:19:03 by ibouchaf         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:31:34 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_cd(t_prompt	*p)
 	char	**str;
 
 	str = ((t_mini *)p->cmds->content)->full_cmd;
-	path[2] = ft_strjoin(ft_strdup("OLDPWD="), getcwd(NULL, 0));
+	path[2] = ft_strjoin("OLDPWD=", getcwd(NULL, 0));
 	if (str[1] == NULL)
 		path[0] = mini_env("HOME", p->envp, 4);
 	else
@@ -26,7 +26,7 @@ int	ft_cd(t_prompt	*p)
 	if (chdir(path[0]) == -1)
 		return (perror("minishell: cd:"), 0, EXIT_FAILURE);
 	if (getcwd(NULL, 0) != NULL)
-		path[1] = ft_strjoin(ft_strdup("PWD="), getcwd(NULL, 0));
+		path[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
 	else
 		path[1] = p->pwd;
 	p->i = -1;
