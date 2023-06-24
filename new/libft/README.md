@@ -1,114 +1,147 @@
-# libft | 42 Madrid
-*Your very own first library :smile:*
 
-<div align="center">
-  <img src=https://user-images.githubusercontent.com/40824677/149224482-9a5f469c-4748-4dcb-8321-8eafd9a44715.png />
-</div>
 
-### Table of Contents
-* [Introduction](#introduction)
-* [Function Overview](#function-overview)
-* [Bonus](#bonus)
-* [Additional Functions](#additional-functions)
-* [Installation](#installation)
-* [Summary](#summary)
+<h1 align="center">
+	42cursus' libft
+</h1>
 
-## Introduction
-In this project we'll be implementing our home-made functions from libc, which will be very useful to get familiar with memory allocation, and to think of creative ways to code these functions.
+<p align="center">
+	<b><i>Development repo for 42cursus' libft project</i></b><br>
+	For further information about 42cursus and its projects, please refer to <a href="https://github.com/Aelbakouri/1337_cursus"><b>42cursus repo</b></a>.
+</p>
 
-## Function Overview
+<p align="center">
+	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Aelbakouri/libft?color=blueviolet" />
+	<img alt="Number of lines of code" src="https://img.shields.io/tokei/lines/github/Aelbakouri/libft?color=blueviolet" />
+	<img alt="Code language count" src="https://img.shields.io/github/languages/count/Aelbakouri/libft?color=blue" />
+	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/Aelbakouri/libft?color=blue" />
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Aelbakouri/libft?color=brightgreen" />
+</p>
 
-| Function | Description |
-| :------: | :---------: |
-| ``ft_atoi`` | Reads a String, and, after ignoring spaces with ``ft_isspace``, saves the string into an integer |
-| ``ft_bzero`` | Writes ``n`` zeroes to the string ``s`` |
-| ``ft_calloc`` | Reserves ``x`` blocks of ``y`` bits of memory |
-| ``ft_isalnum`` | Returns ``1`` if the input is a number or a letter in the ``ASCII`` table |
-| ``ft_isalpha`` | Returns ``1`` if the input is a letter in the ``ASCII`` table |
-| ``ft_isascii`` | Returns whether or not a value belongs to the ``ASCII`` table |
-| ``ft_isdigit`` | Returns ``1`` if the input is a number in the ``ASCII`` table |
-| ``ft_isprint`` | Returns whether a character is printable |
-| ``ft_itoa`` | Saves the given number as a string (char array) |
-| ``ft_memccpy`` | Copies from one memory point to another, until the specified character is copied or until ``n`` bytes are copied |
-| ``ft_memchr`` | Looks for a matching character inside a part of the memory |
-| ``ft_memcmp`` | Compares two parts of memory, returning ``0`` if they're the same, or else a nonzero value |
-| ``ft_memcpy`` | Copies from one part of memory to another, ignoring possible overlaps |
-| ``ft_memmove`` | Copies from one part of memory to another, preventing possible overlaps |
-| ``ft_memset`` | Assigns a character ``n`` times to a part of the memory |
-| ``ft_putchar_fd`` | Prints a character to the given file descriptor |
-| ``ft_putendl_fd`` | Prints a string followed by a new line ``\n`` to a given file descriptor |
-| ``ft_putnbr_fd`` | Prints number to the given file descriptor |
-| ``ft_putstr_fd`` | Prints string to the given file descriptor |
-| ``ft_split`` | Splits a string according to a given separator character |
-| ``ft_strchr`` | Looks for a specific character inside a given string |
-| ``ft_strdup`` | Saves enoug space and duplicates a string |
-| ``ft_strjoin`` | Concatenates two strings allocating enough space first |
-| ``ft_strlcat`` | Concatenates two strings ensuring it ends with ``\0`` |
-| ``ft_strlcpy`` | Copies ``n - 1`` bytes from a source string to a destination string |
-| ``ft_strlen`` | Returns length of a string |
-| ``ft_strmapi`` | Applies a function (mapping) to every element in a string |
-| ``ft_strncmp`` | Compares two strings up to the n-th character |
-| ``ft_strnstr`` | Tries to find a substring (``needle``) in a second string (``haystack``) before the n-th char is reached |
-| ``ft_strrchr`` | Looks for a given character in a string, reading it from back to front |
-| ``ft_strtrim`` | Removes occurrences of characters in a string from the start and end of another one |
-| ``ft_substr`` | Copies from the n-th char of a string |
-| ``ft_tolower`` | Makes every uppercase character in a string lowercase |
-| ``ft_toupper`` | Makes every lowercase character in a string uppercase |
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a7ea133692384ce898799f497288e766)](https://app.codacy.com/gh/Aelbakouri/libft?utm_source=github.com&utm_medium=referral&utm_content=Aelbakouri/libft&utm_campaign=Badge_Grade_Settings)
+![Norminette](https://github.com/hassansaadfr/so_long/workflows/norminette3/badge.svg)
 
-## Bonus
-For this part we implemented a struct defining the well-known linked lists
-```C
-typedef	struct	s_list
-{
-	void		*content;
-	struct	s_list	*next;
-}			t_list;
+
+
+---
+
+## 🗣️ About
+
+> _The aim of this project is to code a C library regrouping usual functions that you'll be allowed to use in all your other projects._
+
+For detailed information, refer to the [**subject of this project**](https://github.com/appinha/42cursus/tree/master/_PDFs).
+
+	🚀 TLDR: this project consists of coding basic C functions (see below), which are then compiled
+	into a library for use in other projects of the cursus.
+
+## Directory Hierarchy
+```bash
+|—— Makefile
+|—— inc
+|    |—— libft.h
+|—— pdf
+|    |—— en.subject.pdf
+|—— srcs
+|    |—— ft_is
+|        |—— ft_isalnum.c		//alphanumeric character test.
+|        |—— ft_isalpha.c		// alphabetic character test.
+|        |—— ft_isascii.c		// test for ASCII character.
+|        |—— ft_isblank.c		// space or tab character test.
+|        |—— ft_isdigit.c		// decimal-digit character test
+|        |—— ft_isprint.c		//  printing character test (space character inclusive).
+|        |—— ft_isspace.c		// white-space character test.
+|        |—— ft_isxdigit.c		// hexadecimal-digit character test
+|        |—— ft_swap.c			// swap value of two integers.
+|    |—— ft_lst
+|        |—— ft_lstadd_back_bonus.c	// add new element at end of list.
+|        |—— ft_lstadd_front_bonus.c	// add new element at beginning of list.
+|        |—— ft_lstclear_bonus.c	// delete sequence of elements of list from a starting point.
+|        |—— ft_lstdelone_bonus.c	// delete element from list.
+|        |—— ft_lstiter_bonus.c		// apply function to content of all lists elements.
+|        |—— ft_lstlast_bonus.c		// find last element of list.
+|        |—— ft_lstmap_bonus.c		// apply function to content of all lists elements into new list.
+|        |—— ft_lstnew_bonus.c		// create new list.
+|        |—— ft_lstsize_bonus.c		// count elements of a list.
+|    |—— ft_mem
+|        |—— ft_bzero.c			// write zeroes to a byte string.
+|        |—— ft_calloc.c		//  memory allocation.
+|        |—— ft_memchr.c		// locate byte in byte string.
+|        |—— ft_memcmp.c		// compare byte string.
+|        |—— ft_memcpy.c		// copy memory area.
+|        |—— ft_memmove.c		// copy byte string.
+|        |—— ft_memset.c		// write a byte to a byte string.
+|    |—— ft_put
+|        |—— ft_putchar.c		// output a character to stdout.
+|        |—— ft_putchar_fd.c		// output a character to given file.
+|        |—— ft_putendl.c		// output string to stdout with newline.
+|        |—— ft_putendl_fd.c		// output string to given file with newline.
+|        |—— ft_putnbr.c		//  output integer to stdout.
+|        |—— ft_putnbr_fd.c		// output integer to given file.
+|        |—— ft_putstr.c		// output string to s	tdout.
+|        |—— ft_putstr_fd.c		// output string to given file.
+|    |—— ft_str
+|        |—— ft_split.c			// split string, with specified character as delimiter, into an array of strings.
+|        |—— ft_strcat.c		// concatenate strings (s2 into s1).
+|        |—— ft_strchr.c		// locate character in string (first occurrence).
+|        |—— ft_strdup.c		// save a copy of a string (with malloc).
+|        |—— ft_striteri.c		// modifying string with specified function.
+|        |—— ft_strjoin.c		// concatenate two strings into a new string (with malloc).
+|        |—— ft_strlcat.c		//  size-bounded string concatenation.
+|        |—— ft_strlcpy.c		// size-bounded string copying.
+|        |—— ft_strlen.c		// find length of string.
+|        |—— ft_strlen_2.c		// find length of 2D array (i.e. splitted string).
+|        |—— ft_strmapi.c		// create new string from modifying string with specified function.
+|        |—— ft_strncmp.c		// compare strings (size-bounded).
+|        |—— ft_strndup.c		// save a copy of a string (with malloc, size-bounded).
+|        |—— ft_strnstr.c		// locate a substring in a string (size-bounded).
+|        |—— ft_strrchr.c		// locate character in string (last occurence).
+|        |—— ft_strtrim.c		// trim beginning and end of string with the specified characters.
+|        |—— ft_substr.c		// extract substring from string.
+|    |—— ft_to
+|        |—— ft_atoi.c			// convert ASCII string to integer.
+|        |—— ft_itoa.c			// convert integer to ASCII string.
+|        |—— ft_tolower.c		// upper case to lower case letter conversion.
+|        |—— ft_toupper.c		// lower case to upper case letter conversion.
+|    |—— gnl
+|        |—— get_next_line.c		// return a line from given fd
+|        |—— gnl.c			// read from standard input and return line
+|    |—— printf
+|        |—— ft_printf.c		// function takes a format string as its first argument, followed by a set of variables
+|        |—— ft_printhex.c		// print hexadecimal format %x and %X
+|        |—— ft_printptr.c		// print the address format %p
+|        |—— ft_printunsigned.c		// %u unsigned int
+|        |—— ft_utils.c
 ```
 
-Bonus functions to implement
+##  Usage
 
-| Bonus Function | Description |
-| :------------: | :---------: |
-| ``ft_lstnew`` | Creates new node allocating with ``malloc`` |
-| ``ft_lstadd_front`` | Adds new node at the beginning of the linked list |
-| ``ft_lstsize`` | Returns number of elements of linked list |
-| ``ft_lstlast`` | Retrieves last node of the list |
-| ``ft_lstadd_back`` | Adds new node at the end of the linked list |
-| ``ft_lstdelone`` | Deletes, frees, and applies function del to content of a given node |
-| ``ft_lstclear`` | Deletes a given element and every element after that |
-| ``ft_lstiter`` | Applies a function to the content of every node of the linked list |
-| ``ft_lstmap`` | Applies function to a copy of the list, freeing when necessary |
-| ``ft_lstget_at`` | ``[EXTRA]`` Retrieves linked list node at idex ``i``, or ``NULL``|
+### Requirements
 
+The library is written in C language and thus needs the **`gcc` compiler** and some standard **C libraries** to run.
 
-## Additional Functions
+### Instructions
 
-Besides ``mandatory`` and ``bonus`` functions, I also have a set of functions inside the ``srca/`` folder. These functions are not part of the ``libft`` subject but they will be useful in future projects. You can check their description in the [libft.h file](https://gitlab.com/madebypixel02/libft/-/blob/main/inc/libft.h)
+**1. Compiling the library**
 
-## Installation
-To test this library out, it's recommended that you have the following packages installed
-```
-gcc clang make python-norminette valgrind (linux)
-```
+To compile the library, run:
 
-Clone the repository
 ```shell
-git clone https://gitlab.com/madebypixel02/libft.git
-cd libft
-make
+$ cd path/to/libft && make
 ```
 
-- Usage:
+**2. Using it in your code**
 
-The makefile compiles all files from the ``src/``, ``srcb/`` or ``srca/`` folders and saves the object files to the ``obj/``, ``objb/`` and ``obja/`` folders. It then generates the output file ``libft.a`` inside the ``bin/`` folder. Here are some of the commands you can try:
+To use the library functions in your code, simply include its header:
 
-```
-make all		Compiles the libft.a file
-make bonus		Compiles all bonus files instead of the mandatory ones
-make norminette		Checks Norm for all .c and .h files in the libft/ folder	
+```C
+#include "libft.h"
 ```
 
-## Summary
-Really enjoyed this first project, can't wait for the next one :wink:
+and, when compiling your code, add the required flags:
 
-May 4th, 2021
+```shell
+-lft -L path/to/libft.a -I path/to/libft.h
+```
+Made with :heart: by <a href="https://github.com/Aelbakouri" target="_blank">Aelbakouri</a>
+
+&#xa0;
+<a href="#top">Back to top</a>
