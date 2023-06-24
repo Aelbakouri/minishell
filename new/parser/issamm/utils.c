@@ -6,7 +6,7 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:58:40 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/06/19 20:07:28 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:51:22 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void	*mini_perror(int err_type, char *param, int err)
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'", 2);
 	else if (err_type == IS_DIR)
 		ft_putstr_fd("minishell: Is a directory: ", 2);
-	else if (err_type == ç)
-		ft_putstr_fd("minishell: Not a directory: ", 2);
 	ft_putendl_fd(param, 2);
 	return (NULL);
 }

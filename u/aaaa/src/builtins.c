@@ -6,17 +6,17 @@
 /*   By: ael-bako <ael-bako@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:18:43 by ael-bako          #+#    #+#             */
-/*   Updated: 2023/05/10 09:18:44 by ael-bako         ###   ########.fr       */
+/*   Updated: 2023/06/22 09:54:40 by ael-bako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-extern int	g_status;
+extern int g_status;
 
-int	builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n)
+int builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n)
 {
-	char	**a;
+	char **a;
 
 	while (cmd)
 	{
@@ -43,14 +43,14 @@ int	builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n)
 	return (g_status);
 }
 
-int	is_builtin(t_mini *n)
+int is_builtin(t_mini *n)
 {
-	int		l;
+	int l;
 
 	if (!n->full_cmd)
 		return (0);
-	if ((n->full_cmd && ft_strchr(*n->full_cmd, '/')) || (n->full_path && \
-		ft_strchr(n->full_path, '/')))
+	if ((n->full_cmd && ft_strchr(*n->full_cmd, '/')) || (n->full_path &&
+														  ft_strchr(n->full_path, '/')))
 		return (0);
 	l = ft_strlen(*n->full_cmd);
 	if (!ft_strncmp(*n->full_cmd, "pwd", l) && l == 3)
@@ -70,10 +70,10 @@ int	is_builtin(t_mini *n)
 	return (0);
 }
 
-int	mini_cd(t_prompt *p)
+int mini_cd(t_prompt *p)
 {
-	char	**str[2];
-	char	*aux;
+	char **str[2];
+	char *aux;
 
 	g_status = 0;
 	str[0] = ((t_mini *)p->cmds->content)->full_cmd;
@@ -98,9 +98,9 @@ int	mini_cd(t_prompt *p)
 	return (g_status);
 }
 
-int	mini_pwd(void)
+int mini_pwd(void)
 {
-	char	*buf;
+	char *buf;
 
 	buf = getcwd(NULL, 0);
 	ft_putendl_fd(buf, 1);
@@ -108,12 +108,12 @@ int	mini_pwd(void)
 	return (0);
 }
 
-int	mini_echo(t_list *cmd)
+int mini_echo(t_list *cmd)
 {
-	int		newline;
-	int		i[2];
-	char	**argv;
-	t_mini	*node;
+	int newline;
+	int i[2];
+	char **argv;
+	t_mini *node;
 
 	i[0] = 0;
 	i[1] = 0;
@@ -122,9 +122,9 @@ int	mini_echo(t_list *cmd)
 	argv = node->full_cmd;
 	while (argv && argv[++i[0]])
 	{
-		if (!i[1] && !ft_strncmp(argv[i[0]], "-n", 2) && \
-			(ft_countchar(argv[i[0]], 'n') == \
-			(int)(ft_strlen(argv[i[0]]) - 1)))
+		if (!i[1] && !ft_strncmp(argv[i[0]], "-n", 2) &&
+			(ft_countchar(argv[i[0]], 'n') ==
+			 (int)(ft_strlen(argv[i[0]]) - 1)))
 			newline = 0;
 		else
 		{
